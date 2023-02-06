@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj" />
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Client.IDAL\Zhaoxi.SmartParking.Client.IDAL.csproj" />
+  </ItemGroup>
+
+</Project>

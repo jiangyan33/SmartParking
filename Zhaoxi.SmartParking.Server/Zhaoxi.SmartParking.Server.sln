@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Server", "Zhaoxi.SmartParking.Server\Zhaoxi.SmartParking.Server.csproj", "{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Start", "1.Start", "{2A8FCD50-BEA6-4982-B411-A2301824388C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Service", "2.Service", "{F4FE8AC7-F76E-4972-81A1-0DC5B7F2EFD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.DAL", "3.DAL", "{A51CCE98-E322-40F0-AF88-705483321CB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Common", "4.Common", "{A372F9D6-B8B4-4449-B530-9F84786C2C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Server.Core", "Zhaoxi.SmartParking.Server.Core\Zhaoxi.SmartParking.Server.Core.csproj", "{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Server.Models", "Zhaoxi.SmartParking.Server.Models\Zhaoxi.SmartParking.Server.Models.csproj", "{4C6876F6-74D8-47AE-9153-5BB0D1CF4403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Server.Service", "Zhaoxi.SmartParking.Server.Service\Zhaoxi.SmartParking.Server.Service.csproj", "{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Server.IService", "Zhaoxi.SmartParking.Server.IService\Zhaoxi.SmartParking.Server.IService.csproj", "{C0E43706-0450-433D-B8F6-77E5EA99956E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C6876F6-74D8-47AE-9153-5BB0D1CF4403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C6876F6-74D8-47AE-9153-5BB0D1CF4403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C6876F6-74D8-47AE-9153-5BB0D1CF4403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C6876F6-74D8-47AE-9153-5BB0D1CF4403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E43706-0450-433D-B8F6-77E5EA99956E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E43706-0450-433D-B8F6-77E5EA99956E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E43706-0450-433D-B8F6-77E5EA99956E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E43706-0450-433D-B8F6-77E5EA99956E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E94F9F6D-ADCF-45EF-8121-6EDE6205F20B} = {2A8FCD50-BEA6-4982-B411-A2301824388C}
+		{CDC338E9-B47A-4C76-AB80-F8BEA7F935F3} = {A51CCE98-E322-40F0-AF88-705483321CB3}
+		{4C6876F6-74D8-47AE-9153-5BB0D1CF4403} = {A372F9D6-B8B4-4449-B530-9F84786C2C70}
+		{CCEFDE46-6DE1-4B83-8494-B74D25C1FB74} = {F4FE8AC7-F76E-4972-81A1-0DC5B7F2EFD7}
+		{C0E43706-0450-433D-B8F6-77E5EA99956E} = {F4FE8AC7-F76E-4972-81A1-0DC5B7F2EFD7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA33A24E-61E3-4D72-8543-928B9A3345CA}
+	EndGlobalSection
+EndGlobal

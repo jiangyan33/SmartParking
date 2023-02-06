@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Server.Core\Zhaoxi.SmartParking.Server.Core.csproj" />
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Server.IService\Zhaoxi.SmartParking.Server.IService.csproj" />
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Server.Models\Zhaoxi.SmartParking.Server.Models.csproj" />
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Server.Service\Zhaoxi.SmartParking.Server.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Web_Files\Upgrade_Files\麻精药品智能管理柜.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

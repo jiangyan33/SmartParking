@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client", "Zhaoxi.SmartParking.Client\Zhaoxi.SmartParking.Client.csproj", "{F90EB688-F52E-4E67-A0F1-080D04C8D632}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Start", "1.Start", "{934B455A-49E2-4839-9D8E-F32CE2245BDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.BLL", "2.BLL", "{8B45052A-39DD-49AF-8021-15F67FE8F34A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.DAL", "3.DAL", "{0DE74730-C4AA-474F-9285-F5A7E06BA24E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Common", "4.Common", "{4B8FFB99-0684-4B9F-94A1-5671A1C5A661}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.Assets", "Zhaoxi.SmartParking.Client.Assets\Zhaoxi.SmartParking.Client.Assets.csproj", "{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.DAL", "Zhaoxi.SmartParking.Client.DAL\Zhaoxi.SmartParking.Client.DAL.csproj", "{06F252BD-30BC-46CF-A72A-62F74419D82B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.IDAL", "Zhaoxi.SmartParking.Client.IDAL\Zhaoxi.SmartParking.Client.IDAL.csproj", "{40C6376E-A80B-4571-981E-FFAD5565AEA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.Entity", "Zhaoxi.SmartParking.Client.Entity\Zhaoxi.SmartParking.Client.Entity.csproj", "{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.BLL", "Zhaoxi.SmartParking.Client.BLL\Zhaoxi.SmartParking.Client.BLL.csproj", "{0B60C978-A5FA-4D70-8C20-E76CD4A95505}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.IBLL", "Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj", "{A263FDF1-2A48-47AE-B165-8461B4A90161}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12128739-D8D6-4590-84D6-F6E6AFA3BE22}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.Controls", "Zhaoxi.SmartParking.Client.Controls\Zhaoxi.SmartParking.Client.Controls.csproj", "{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F90EB688-F52E-4E67-A0F1-080D04C8D632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90EB688-F52E-4E67-A0F1-080D04C8D632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90EB688-F52E-4E67-A0F1-080D04C8D632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90EB688-F52E-4E67-A0F1-080D04C8D632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06F252BD-30BC-46CF-A72A-62F74419D82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06F252BD-30BC-46CF-A72A-62F74419D82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06F252BD-30BC-46CF-A72A-62F74419D82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06F252BD-30BC-46CF-A72A-62F74419D82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C6376E-A80B-4571-981E-FFAD5565AEA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C6376E-A80B-4571-981E-FFAD5565AEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C6376E-A80B-4571-981E-FFAD5565AEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C6376E-A80B-4571-981E-FFAD5565AEA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B60C978-A5FA-4D70-8C20-E76CD4A95505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B60C978-A5FA-4D70-8C20-E76CD4A95505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B60C978-A5FA-4D70-8C20-E76CD4A95505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B60C978-A5FA-4D70-8C20-E76CD4A95505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A263FDF1-2A48-47AE-B165-8461B4A90161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A263FDF1-2A48-47AE-B165-8461B4A90161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A263FDF1-2A48-47AE-B165-8461B4A90161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A263FDF1-2A48-47AE-B165-8461B4A90161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F90EB688-F52E-4E67-A0F1-080D04C8D632} = {934B455A-49E2-4839-9D8E-F32CE2245BDD}
+		{8AAD03DE-B4C9-4B54-A95A-E8756A975EEC} = {4B8FFB99-0684-4B9F-94A1-5671A1C5A661}
+		{06F252BD-30BC-46CF-A72A-62F74419D82B} = {0DE74730-C4AA-474F-9285-F5A7E06BA24E}
+		{40C6376E-A80B-4571-981E-FFAD5565AEA7} = {0DE74730-C4AA-474F-9285-F5A7E06BA24E}
+		{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29} = {4B8FFB99-0684-4B9F-94A1-5671A1C5A661}
+		{0B60C978-A5FA-4D70-8C20-E76CD4A95505} = {8B45052A-39DD-49AF-8021-15F67FE8F34A}
+		{A263FDF1-2A48-47AE-B165-8461B4A90161} = {8B45052A-39DD-49AF-8021-15F67FE8F34A}
+		{FB9E2F06-A642-4D91-A04B-A8E34F482EAA} = {4B8FFB99-0684-4B9F-94A1-5671A1C5A661}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDAEDA78-E9CA-4BC4-A785-5024734E32FE}
+	EndGlobalSection
+EndGlobal
