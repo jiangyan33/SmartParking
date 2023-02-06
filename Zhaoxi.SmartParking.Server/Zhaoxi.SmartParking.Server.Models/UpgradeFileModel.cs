@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Zhaoxi.SmartParking.Server.Models
 {
-    [SugarTable("sys_user")]
+    [SugarTable("upgrade_file")]
     public class UpgradeFileModel
     {
         [SugarColumn(ColumnName = "file_id")]

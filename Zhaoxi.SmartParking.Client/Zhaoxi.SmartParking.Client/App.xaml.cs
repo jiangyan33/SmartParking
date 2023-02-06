@@ -34,10 +34,12 @@ namespace Zhaoxi.SmartParking.Client
         {
             // BLL
             containerRegistry.Register<ISysUserBLL, SysUserBLL>();
+            containerRegistry.Register<IFilesBLL, FilesBLL>();
 
 
             // DAL
             containerRegistry.Register<ISysUserDAL, SysUserDAL>();
+            containerRegistry.Register<IFilesDAL, FilesDAL>();
         }
     }
 }

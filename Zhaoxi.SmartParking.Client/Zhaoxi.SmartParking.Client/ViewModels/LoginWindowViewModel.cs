@@ -33,13 +33,24 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
             set { SetProperty(ref _isLoading, value); }
         }
 
-        public LoginWindowViewModel(ISysUserBLL sysUserBLL)
+        public LoginWindowViewModel(ISysUserBLL sysUserBLL, IFilesBLL filesBLL)
         {
             _sysUserBLL = sysUserBLL;
 
             SysUserModel = new SysUserModel();
 
             LoginCommand = new DelegateCommand<Window>(Login);
+
+            // 检查更新
+            IsLoading = true;
+            Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+
+                var ret = await filesBLL.List();
+
+                IsLoading = false;
+            });
         }
 
         public void Login(Window window)
