@@ -19,18 +19,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.IDAL", "Zhaoxi.SmartParking.Client.IDAL\Zhaoxi.SmartParking.Client.IDAL.csproj", "{40C6376E-A80B-4571-981E-FFAD5565AEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.Entity", "Zhaoxi.SmartParking.Client.Entity\Zhaoxi.SmartParking.Client.Entity.csproj", "{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.Entity", "Zhaoxi.SmartParking.Client.Entity\Zhaoxi.SmartParking.Client.Entity.csproj", "{5C3B4DB8-4655-4B3B-9D2A-8DD2197C7C29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.BLL", "Zhaoxi.SmartParking.Client.BLL\Zhaoxi.SmartParking.Client.BLL.csproj", "{0B60C978-A5FA-4D70-8C20-E76CD4A95505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.BLL", "Zhaoxi.SmartParking.Client.BLL\Zhaoxi.SmartParking.Client.BLL.csproj", "{0B60C978-A5FA-4D70-8C20-E76CD4A95505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.IBLL", "Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj", "{A263FDF1-2A48-47AE-B165-8461B4A90161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.IBLL", "Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj", "{A263FDF1-2A48-47AE-B165-8461B4A90161}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12128739-D8D6-4590-84D6-F6E6AFA3BE22}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Zhaoxi.SmartParking.Client\bin\Debug\net5.0-windows\Zhaoxi.SmartParking.Client.Data.dll = Zhaoxi.SmartParking.Client\bin\Debug\net5.0-windows\Zhaoxi.SmartParking.Client.Data.dll
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.Controls", "Zhaoxi.SmartParking.Client.Controls\Zhaoxi.SmartParking.Client.Controls.csproj", "{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.Controls", "Zhaoxi.SmartParking.Client.Controls\Zhaoxi.SmartParking.Client.Controls.csproj", "{FB9E2F06-A642-4D91-A04B-A8E34F482EAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
