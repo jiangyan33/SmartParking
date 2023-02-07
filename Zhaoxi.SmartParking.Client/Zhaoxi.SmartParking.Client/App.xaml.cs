@@ -14,6 +14,12 @@ namespace Zhaoxi.SmartParking.Client
     /// </summary>
     public partial class App : PrismApplication
     {
+
+        public App()
+        {
+            LocalDataAccess.InitTables();
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
@@ -26,8 +32,6 @@ namespace Zhaoxi.SmartParking.Client
                 base.InitializeShell(shell);
             }
             else Current.Shutdown();
-
-
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
