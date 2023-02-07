@@ -49,6 +49,8 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
 
                 var ret = await filesBLL.List();
 
+                var localRet = await filesBLL.LocalList();
+
                 IsLoading = false;
             });
         }

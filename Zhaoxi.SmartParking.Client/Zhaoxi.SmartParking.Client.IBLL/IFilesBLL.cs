@@ -10,5 +10,7 @@ namespace Zhaoxi.SmartParking.Client.IBLL
     public interface IFilesBLL
     {
         public Task<List<UpgradeFileEntity>> List();
+
+        public Task<List<UpgradeFileEntity>> LocalList();
     }
 }

@@ -32,5 +32,14 @@ namespace Zhaoxi.SmartParking.Client.BLL
             }
             return result.Data;
         }
+
+        public async Task<List<UpgradeFileEntity>> LocalList()
+        {
+            var str = await _filesDAL.LocalList();
+
+            var result = JsonSerializer.Deserialize<List<UpgradeFileEntity>>(str, _jsonSerializerOptions);
+
+            return result;
+        }
     }
 }

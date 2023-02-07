@@ -9,5 +9,7 @@ namespace Zhaoxi.SmartParking.Client.IDAL
     public interface IFilesDAL
     {
         public Task<string> List();
+
+        public Task<string> LocalList();
     }
 }
