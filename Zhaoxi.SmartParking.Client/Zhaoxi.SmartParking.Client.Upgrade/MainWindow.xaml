@@ -1,0 +1,144 @@
+﻿<Window x:Class="Zhaoxi.SmartParking.Client.Upgrade.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.Upgrade"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="朝夕智能停车场在线更新"
+        Width="650"
+        Height="420"
+        FontFamily="微软雅黑"
+        FontSize="12"
+        FontWeight="ExtraLight"
+        Foreground="#333"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" />
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#FF0266DE" />
+            <GradientStop Offset="1" Color="#FF002B78" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  两条曲线  -->
+        <Path Grid.ColumnSpan="2"
+              Height="63"
+              Margin="-1,0,-1,-1"
+              VerticalAlignment="Bottom"
+              Data="M0,0 C77.333333,99.548011 194,-33 409.33333,10.333333 528.79242,30.346949 508,58.333333 650,9 650,9 650,63 650,63 650,63 0,63 0,63"
+              Fill="#880266DE" />
+        <Path Grid.ColumnSpan="2"
+              Height="153"
+              Margin="-1,0,-1,-70"
+              VerticalAlignment="Bottom"
+              Data="M1.3333333,53.520355 C102.66667,59.392056 132.66667,-39.372296 256,17.96577 351.33333,60 416.11049,85.762903 508,49.333333 620.66667,4.6666667 643.65553,68.862086 650,64.632437 650,64.632437 650,152.63243 650,152.63243 650,152.63243 0,149.96577 0,149.96577"
+              Fill="#880266DE"
+              StrokeThickness="2" />
+
+        <Border Grid.Column="1" Background="#EEF7F9FA" />
+
+        <Button Grid.Column="1"
+                Width="32"
+                Height="32"
+                Margin="10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Foreground="White"
+                WindowChrome.IsHitTestVisibleInChrome="True">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid Name="root" Background="Transparent">
+                        <TextBlock Name="txt"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="26"
+                                   FontWeight="ExtraLight"
+                                   Foreground="#666"
+                                   Text="×" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="root" Property="Background" Value="#FFC42B1C" />
+                            <Setter TargetName="txt" Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <!--  左侧信息  -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Foreground="White"
+                       Text="朝夕教育智能停车系统" />
+
+            <StackPanel Grid.Row="1"
+                        Margin="50,10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        TextBlock.Foreground="White">
+                <TextBlock VerticalAlignment="Center" Text="正在更新...." />
+                <Border Width="60"
+                        Height="26"
+                        Background="White"
+                        CornerRadius="13">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="Gray"
+                               Text="4 / 10" />
+                </Border>
+                <Button Height="30"
+                        Margin="0,20,0,0"
+                        Background="DarkOrange"
+                        BorderThickness="0"
+                        Command="{Binding}"
+                        Content="开始更新"
+                        Foreground="White"
+                        Template="{StaticResource NormalButtonTemplate}" />
+
+            </StackPanel>
+
+            <TextBlock Grid.Row="1"
+                       Margin="0,0,0,10"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontSize="10"
+                       Foreground="#22FFFFFF"
+                       Text="2022 © 朝夕教育" />
+        </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding FileModelList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate />
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
