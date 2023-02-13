@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using Zhaoxi.SmartParking.Client.Upgrade.Models;
 
@@ -14,10 +9,10 @@ namespace Zhaoxi.SmartParking.Client.Upgrade
     /// </summary>
     public partial class App : Application
     {
-
-
         protected override void OnStartup(StartupEventArgs e)
         {
+            //[{ "Index":0,"FileName":"\u6D4B\u8BD5001","FileUrl":null,"FileLen":0,"State":null,"ErrorMsg":null},{ "Index":0,"FileName":"\u6D4B\u8BD5002","FileUrl":null,"FileLen":0,"State":null,"ErrorMsg":null},{ "Index":0,"FileName":"\u6D4B\u8BD5003","FileUrl":null,"FileLen":0,"State":null,"ErrorMsg":null},{ "Index":0,"FileName":"\u6D4B\u8BD5004","FileUrl":null,"FileLen":0,"State":null,"ErrorMsg":null}]
+
             if (e.Args.Length == 0)
             {
                 Current.Shutdown();
