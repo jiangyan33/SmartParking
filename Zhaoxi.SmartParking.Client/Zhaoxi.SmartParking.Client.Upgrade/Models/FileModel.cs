@@ -1,9 +1,6 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Zhaoxi.SmartParking.Client.Upgrade.Models
 {
@@ -13,6 +10,8 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.Models
         public int Index { get; set; }
 
         public string FileName { get; set; }
+
+        public string MD5 { get; set; }
 
         public string FileUrl { get; set; }
 
@@ -26,13 +25,20 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.Models
             set { SetProperty(ref _state, value); }
         }
 
-        private string _errorMsg;
+        //private SolidColorBrush _errorMsg = new SolidColorBrush(Color.FromRgb(85, 85, 85));
 
-        public string ErrorMsg
+        //public SolidColorBrush ErrorMsg
+        //{
+        //    get { return _errorMsg; }
+        //    set { Application.Current.Dispatcher.Invoke(() => SetProperty(ref _errorMsg, value)); }
+        //}
+
+        private int _progress;
+
+        public int Progress
         {
-            get { return _errorMsg; }
-            set { SetProperty(ref _errorMsg, value); }
+            get { return _progress; }
+            set { SetProperty(ref _progress, value); }
         }
-
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
 using Zhaoxi.SmartParking.Server.Models;
@@ -15,15 +17,26 @@ namespace Zhaoxi.SmartParking.Server.Controllers
     {
         private readonly IFilesService _filesService;
 
-        public FilesController(IFilesService filesService)
+        private readonly IConfiguration _configuration;
+
+        public FilesController(IFilesService filesService, IConfiguration configuration)
         {
             _filesService = filesService;
+
+            _configuration = configuration;
         }
 
         [HttpPost("list")]
         public async Task<Result<List<UpgradeFileModel>>> List()
         {
             var result = await _filesService.List();
+
+            var url = _configuration["Urls"] + "/api/Files/download/";
+
+            foreach (var item in result)
+            {
+                item.FilePath = url + item.FileName;
+            }
 
             return new Result<List<UpgradeFileModel>> { IsSuccess = true, Data = result };
         }
@@ -38,9 +51,31 @@ namespace Zhaoxi.SmartParking.Server.Controllers
 
             var type = new MediaTypeHeaderValue("application/oct-stream").MediaType;
 
-            var bytes = System.IO.File.ReadAllBytes(filePath);
+            var fs = new ResFileStream(filePath, FileMode.Open, FileAccess.Read);
 
-            return File(bytes, type, fileName);
+            return File(fs, contentType: type, fileName, enableRangeProcessing: true);
+
+
+            //var bytes = System.IO.File.ReadAllBytes(filePath);
+
+            //return File(bytes, type, fileName);
         }
+
+    }
+
+    public class ResFileStream : FileStream
+    {
+        public ResFileStream(string path, FileMode mode, FileAccess access) : base(path, mode, access) { }
+
+        public override int Read(byte[] array, int offset, int count)
+        {
+            // 文件读取限速，方便测试  3M的文件大概需要10s
+            count = 2048;
+
+            Thread.Sleep(5);
+
+            return base.Read(array, offset, count);
+        }
+
     }
 }

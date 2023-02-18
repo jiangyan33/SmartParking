@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.Assets\Zhaoxi.SmartParking.Client.Assets.csproj" />
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.BLL\Zhaoxi.SmartParking.Client.BLL.csproj" />
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Client.Common\Zhaoxi.SmartParking.Client.Common.csproj" />
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.Controls\Zhaoxi.SmartParking.Client.Controls.csproj" />
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.DAL\Zhaoxi.SmartParking.Client.DAL.csproj" />
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj" />

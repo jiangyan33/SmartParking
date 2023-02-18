@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Events;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Zhaoxi.SmartParking.Client.Common;
 
 namespace Zhaoxi.SmartParking.Client.Views
 {
@@ -19,9 +9,16 @@ namespace Zhaoxi.SmartParking.Client.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        public LoginWindow(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+
+            eventAggregator.GetEvent<CloseWindowEvent>().Subscribe(MessageReceived, ThreadOption.UIThread);
+        }
+
+        private void MessageReceived()
+        {
+            this.Close();
         }
     }
 }
