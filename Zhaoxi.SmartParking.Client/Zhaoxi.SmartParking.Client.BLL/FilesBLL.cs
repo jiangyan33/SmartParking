@@ -37,7 +37,11 @@ namespace Zhaoxi.SmartParking.Client.BLL
         {
             var str = await _filesDAL.LocalList();
 
-            var result = JsonSerializer.Deserialize<List<UpgradeFileEntity>>(str, _jsonSerializerOptions);
+            //var result = new List<UpgradeFileEntity>();
+
+            //foreach(var item )
+
+            var result = JsonSerializer.Deserialize<List<UpgradeFileEntity>>(str);
 
             return result;
         }

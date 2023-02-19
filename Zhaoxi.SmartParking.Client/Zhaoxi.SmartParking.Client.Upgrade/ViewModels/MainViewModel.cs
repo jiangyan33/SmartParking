@@ -56,10 +56,14 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.ViewModels
                 _totalLen += item.FileLen;
             }
 
-            StartCommand = new DelegateCommand(OnStart);
+            StartCommand = new DelegateCommand(OnStart, () => Index == 0);
+
+            CloseCommand = new DelegateCommand<object>(Close, (obj) => Index == 0);
         }
 
         #region 命令
+
+        public ICommand CloseCommand { get; set; }
 
         public ICommand StartCommand { get; set; }
 
@@ -97,7 +101,10 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.ViewModels
                             fileModel.State = "✔";
                         }
 
-                        Index++;
+                        if (Index < FileModelList.Count)
+                        {
+                            Index++;
+                        }
 
                         _value += Convert.ToInt32(fileModel.FileLen / _totalLen * 100);
 
@@ -139,6 +146,11 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.ViewModels
 
                 Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
             });
+        }
+
+        private void Close(object obj)
+        {
+            (obj as Window).Close();
         }
 
         #endregion

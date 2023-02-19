@@ -18,6 +18,7 @@ namespace Zhaoxi.SmartParking.Client.Upgrade
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // 程序运行需要的核心文件Zhaoxi.SmartParking.Client.Upgrade.runtimeconfig.json  Zhaoxi.SmartParking.Client.Upgrade.deps.json
             // 需要的文件参数:文件名称、文件大小、文件路径、文件MD5,每一个文件之间使用【;】进行分割，每个属性之间使用【|】进行分割
             var str = e.Args;
 #if DEBUG
