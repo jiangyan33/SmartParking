@@ -5,7 +5,7 @@ namespace Zhaoxi.SmartParking.Client.Models
     public class SysUserModel : BindableBase
     {
 
-        private string _userName;
+        private string _userName = "admin";
 
         public string UserName
         {
@@ -13,7 +13,7 @@ namespace Zhaoxi.SmartParking.Client.Models
             set { SetProperty(ref _userName, value); }
         }
 
-        private string _password="";
+        private string _password = "123456";
 
         public string Password
         {

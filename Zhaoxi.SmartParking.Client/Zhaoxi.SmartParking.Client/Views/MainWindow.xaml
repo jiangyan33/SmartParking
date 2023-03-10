@@ -4,34 +4,91 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="MainWindow"
-        Width="800"
-        Height="450"
+        xmlns:prism="http://prismlibrary.com/"
+        Title="朝夕教育停车场管理"
+        Width="1400"
+        Height="850"
+        Background="Transparent"
+        FontFamily="微软雅黑"
+        FontSize="13"
+        FontWeight="ExtraLight"
+        Foreground="#333"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
-    <Window.Resources>
-        <Style x:Key="CheckBoxStyle1" TargetType="{x:Type CheckBox}">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <Border x:Name="checkBoxBorder">
-                            <TextBlock Name="text"
-                                       FontFamily="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Fonts/#iconfont"
-                                       Text="&#xebcd;" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="true">
-                                <Setter TargetName="text" Property="Opacity" Value="1" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    <Grid>
-        <CheckBox Content="ssss" Style="{DynamicResource CheckBoxStyle1}" />
-    </Grid>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" ResizeBorderThickness="4" />
+    </WindowChrome.WindowChrome>
+    <DockPanel>
+        <!--  左侧菜单  -->
+        <Grid Width="230"
+              Background="#0b3d90"
+              DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Image Width="70"
+                       Margin="0,30,0,0"
+                       Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Images/Logo.png" />
+                <TextBlock Margin="0,30"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Text="Smart Parking" />
+            </StackPanel>
+            <!--  注册区域   显示树形菜单  -->
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="LeftMenuTreeRegion" />
+        </Grid>
+        <!--  主页头  -->
+        <ContentControl Height="70"
+                        prism:RegionManager.RegionName="MainHeaderRegion"
+                        DockPanel.Dock="Top" />
+        <!--  页面显示区域  -->
+        <TabControl prism:RegionManager.RegionName="MainViewRegion" />
+    </DockPanel>
+
+    <!--<DockPanel>
+    -->
+    <!--  左侧菜单  -->
+    <!--
+        <Grid Width="230"
+              Background="#0b3d90"
+              DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <Image Width="70"
+                       Margin="0,30,0,0"
+                       Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Images/Logo.png" />
+                <TextBlock Margin="0,30"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Text="Smart Parking" />
+            </StackPanel>
+    -->
+    <!--  树形菜单  -->
+    <!--
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="LeftMenuTreeRegion" />
+        </Grid>
+
+    -->
+    <!--  主页头  -->
+    <!--
+        <ContentControl Height="70"
+                        prism:RegionManager.RegionName="MainHeaderRegion"
+                        DockPanel.Dock="Top" />
+
+    -->
+    <!--  页面显示区域  -->
+    <!--
+        <TabControl prism:RegionManager.RegionName="MainViewRegion" />
+    </DockPanel>-->
 
 </Window>

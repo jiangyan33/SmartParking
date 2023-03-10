@@ -50,7 +50,7 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
             IsLoading = true;
             Task.Run(async () =>
             {
-                await Task.Delay(2000);
+                //await Task.Delay(2000);
 
                 var files = new List<string>();
 
@@ -99,7 +99,7 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
 
                     if (string.IsNullOrEmpty(SysUserModel.Password)) throw new System.Exception("请输入密码");
 
-                    await Task.Delay(5000);
+                    //await Task.Delay(5000);
 
                     var model = await _sysUserBLL.Login(SysUserModel.UserName, SysUserModel.Password);
 

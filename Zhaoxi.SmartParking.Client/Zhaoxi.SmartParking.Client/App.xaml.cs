@@ -1,5 +1,7 @@
 ﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Unity;
+using System;
 using System.Windows;
 using Zhaoxi.SmartParking.Client.BLL;
 using Zhaoxi.SmartParking.Client.DAL;
@@ -39,11 +41,18 @@ namespace Zhaoxi.SmartParking.Client
             // BLL
             containerRegistry.Register<ISysUserBLL, SysUserBLL>();
             containerRegistry.Register<IFilesBLL, FilesBLL>();
-
+            containerRegistry.Register<IMenusBLL, MenusBLL>();
 
             // DAL
             containerRegistry.Register<ISysUserDAL, SysUserDAL>();
             containerRegistry.Register<IFilesDAL, FilesDAL>();
+            containerRegistry.Register<IMenusDAL, MenusDAL>();
+
+        }
+
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new DirectoryModuleCatalog() { ModulePath = Environment.CurrentDirectory + "\\Modules" };
         }
     }
 }

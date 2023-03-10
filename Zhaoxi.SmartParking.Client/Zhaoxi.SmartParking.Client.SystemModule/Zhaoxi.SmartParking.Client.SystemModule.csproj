@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Prism.Unity" Version="8.1.97" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy $(TargetPath) $(SolutionDir)Zhaoxi.SmartParking.Client\bin\Debug\net5.0-windows\Modules\$(TargetFileName) /i /s /y" />
+	</Target>
+
+</Project>
