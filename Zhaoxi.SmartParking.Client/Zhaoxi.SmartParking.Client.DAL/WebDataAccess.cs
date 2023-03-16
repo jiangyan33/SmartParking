@@ -3,6 +3,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Collections.Generic;
+using System.Net;
+using System.Diagnostics;
 
 namespace Zhaoxi.SmartParking.Client.DAL
 {
@@ -21,6 +24,48 @@ namespace Zhaoxi.SmartParking.Client.DAL
             var httpResponseMessage = await client.PostAsync(baseUrl + url, content);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
+        }
+
+
+        public static async void Upload(string url, string file, Action<int> progressChanged, Action completed, Dictionary<string, object> headers = null)
+        {
+            using (WebClient client = new WebClient())
+            {
+                var length = Convert.ToInt64(headers["length"]);
+
+                var progress = 0;
+
+                var tmp = Convert.ToInt32(length / 5000);
+
+                if (tmp < 1) tmp = 1;
+
+                if (headers != null)
+                {
+                    foreach (var dic in headers)
+                    {
+                        client.Headers.Add(dic.Key, dic.Value.ToString());
+                    }
+                }
+
+                client.UploadProgressChanged += (se, ev) =>
+                {
+                    if (progress >= 95)
+                    {
+                        progress = 95;
+                    }
+                    else
+                    {
+                        // 按照一秒50k的速度上传速度
+                        progress += tmp;
+                    }
+
+                    progressChanged(progress);
+                };
+
+                client.UploadFileCompleted += (se, ev) => completed();
+
+                client.UploadFileAsync(new Uri(baseUrl + url), "POST", file);
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
                     if (model == null)
                     {
                         //文件名称、文件大小、文件路径、文件MD5
-                        files.Add(serverFile.FileName + "|" + serverFile.Length + "|" + serverFile.FilePath + "|" + serverFile.FileMD5);
+                        files.Add(serverFile.FileName + "|" + serverFile.Length + "|" + serverFile.FilePath + "|" + serverFile.UpdatePath + "|" + serverFile.FileMD5);
                     }
                 }
 

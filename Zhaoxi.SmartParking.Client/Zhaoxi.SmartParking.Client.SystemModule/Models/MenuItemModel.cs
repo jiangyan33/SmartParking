@@ -1,6 +1,6 @@
 ﻿using Prism.Mvvm;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 
 namespace Zhaoxi.SmartParking.Client.SystemModule.Models
 {
@@ -20,6 +20,6 @@ namespace Zhaoxi.SmartParking.Client.SystemModule.Models
             set { SetProperty(ref _isExpanded, value); }
         }
 
-        public List<MenuItemModel> Children { get; set; }
+        public ObservableCollection<MenuItemModel> Children { get; set; } = new ObservableCollection<MenuItemModel>();
     }
 }

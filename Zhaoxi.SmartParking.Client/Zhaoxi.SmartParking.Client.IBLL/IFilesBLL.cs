@@ -11,6 +11,10 @@ namespace Zhaoxi.SmartParking.Client.IBLL
     {
         public Task<List<UpgradeFileEntity>> List();
 
+        public Task<bool> Delete(string fileName);
+
         public Task<List<UpgradeFileEntity>> LocalList();
+
+        public void UploadFile(string file, string filePath, Action<int> progressChanged, Action completed);
     }
 }

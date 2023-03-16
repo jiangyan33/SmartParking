@@ -16,6 +16,8 @@ namespace Zhaoxi.SmartParking.Client.Entity
 
         public string FilePath { get; set; }
 
+        public string UpdatePath { get; set; }
+
         public int Length { get; set; }
 
         public int State { get; set; }

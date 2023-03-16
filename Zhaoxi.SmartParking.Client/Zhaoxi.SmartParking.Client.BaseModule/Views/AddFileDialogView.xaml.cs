@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Zhaoxi.SmartParking.Client.SystemModule.Views
+namespace Zhaoxi.SmartParking.Client.BaseModule.Views
 {
     /// <summary>
-    /// TreeMenuView.xaml 的交互逻辑
+    /// AddFileDialogView.xaml 的交互逻辑
     /// </summary>
-    public partial class TreeMenuView : UserControl
+    public partial class AddFileDialogView : UserControl
     {
-        public TreeMenuView()
+        public AddFileDialogView()
         {
             InitializeComponent();
         }

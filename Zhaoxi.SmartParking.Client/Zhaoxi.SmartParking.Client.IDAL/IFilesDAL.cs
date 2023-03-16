@@ -11,5 +11,9 @@ namespace Zhaoxi.SmartParking.Client.IDAL
         public Task<string> List();
 
         public Task<string> LocalList();
+
+        public void UploadFile(string file, string updatePath, Action<int> progressChanged, Action completed);
+
+        public Task<string> Delete(string fileName);
     }
 }

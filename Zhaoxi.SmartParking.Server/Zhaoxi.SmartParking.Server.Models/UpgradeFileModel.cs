@@ -10,7 +10,7 @@ namespace Zhaoxi.SmartParking.Server.Models
     [SugarTable("upgrade_file")]
     public class UpgradeFileModel
     {
-        [SugarColumn(ColumnName = "file_id")]
+        [SugarColumn(ColumnName = "file_id", IsPrimaryKey = true)]
         public int Id { get; set; }
 
         [SugarColumn(ColumnName = "file_name")]
@@ -21,6 +21,9 @@ namespace Zhaoxi.SmartParking.Server.Models
 
         [SugarColumn(ColumnName = "file_path")]
         public string FilePath { get; set; }
+
+        [SugarColumn(ColumnName = "update_path")]
+        public string UpdatePath { get; set; }
 
         [SugarColumn(ColumnName = "length")]
         public int Length { get; set; }

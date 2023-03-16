@@ -9,12 +9,170 @@
              d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
+                <ResourceDictionary>
+                    <ControlTemplate x:Key="ArrowButtonTemplate" TargetType="ToggleButton">
+                        <Grid Name="back" Background="Transparent">
+                            <TextBlock Name="arrow"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{StaticResource Iconfont}"
+                                       RenderTransformOrigin="0.5,0.5"
+                                       Text="&#xe81d;" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="arrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="90" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#11000000" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <TreeView ItemsSource="{Binding Menus}">
+
+        <Grid.Resources>
+            <!--  把图标和标题当作一个内容  -->
+            <Style TargetType="TreeViewItem">
+
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="8,5" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TreeViewItem">
+                            <Grid Name="root" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition MaxWidth="30" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="36" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+
+                                <Grid.InputBindings>
+                                    <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.OpenViewCommand}"
+                                                  CommandParameter="{Binding}"
+                                                  MouseAction="LeftDoubleClick" />
+                                </Grid.InputBindings>
+
+
+                                <Border Name="Bd"
+                                        Grid.ColumnSpan="2"
+                                        Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="0">
+                                    <ContentPresenter Name="PART_Header"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      ContentSource="Header"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                                <!--  右下角展开  -->
+                                <ToggleButton Name="Expander"
+                                              Grid.Column="1"
+                                              ClickMode="Press"
+                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Template="{StaticResource ArrowButtonTemplate}" />
+
+                                <ItemsPresenter Name="ItemsHost"
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                Margin="18,0,0,0" />
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <!--  是否展开  -->
+                                <Trigger Property="IsExpanded" Value="False">
+                                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <!--  是否有子项  -->
+                                <Trigger Property="HasItems" Value="False">
+                                    <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
+                                </Trigger>
+                                <!--  是否选中  -->
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="#F7F9FA" />
+                                    <Setter Property="Foreground" Value="#0b3d90" />
+                                    <Setter TargetName="Expander" Property="Foreground" Value="#0b3d90" />
+                                </Trigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="true" />
+                                        <Condition Property="IsSelectionActive" Value="false" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Bd" Property="Background" Value="#FF0ABEFF" />
+                                    <Setter Property="Foreground" Value="#FFFFFF" />
+                                </MultiTrigger>
+                                <!--  是否有图标  -->
+                                <DataTrigger Binding="{Binding MenuIcon}" Value="{x:Null}">
+                                    <Setter TargetName="root" Property="Margin" Value="10,0,0,0" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+
+            </Style>
+
+        </Grid.Resources>
+
+        <TreeView Name="tree"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  ItemsSource="{Binding Menus}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}" />
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="c1" Width="30" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{DynamicResource Iconfont}"
+                                   FontSize="18"
+                                   SnapsToDevicePixels="True"
+                                   Text="{Binding MenuIcon}" />
+
+                        <TextBlock Grid.Column="1"
+                                   Margin="5,0,0,0"
+                                   FontSize="13"
+                                   Text="{Binding MenuHeader}" />
+                    </Grid>
+                    <HierarchicalDataTemplate.Triggers>
+                        <!--  没有图标第一列宽度设置为0  -->
+                        <DataTrigger Binding="{Binding MenuIcon}" Value="{x:Null}">
+                            <Setter TargetName="c1" Property="Width" Value="0" />
+                        </DataTrigger>
+                    </HierarchicalDataTemplate.Triggers>
+                </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <TextBlock Text="TreeView" />
     </Grid>
 </UserControl>

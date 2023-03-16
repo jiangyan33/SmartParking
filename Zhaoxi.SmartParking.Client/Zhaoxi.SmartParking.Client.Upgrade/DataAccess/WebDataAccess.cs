@@ -33,7 +33,9 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.DataAccess
                 DownloadCompleted?.Invoke();
             };
 
-            _webClient.DownloadFileAsync(new Uri(fileModel.FileUrl), fileModel.FileName);
+            var path = string.IsNullOrEmpty(fileModel.UpdatePath) ? fileModel.FileName : fileModel.UpdatePath + "\\" + fileModel.FileName;
+
+            _webClient.DownloadFileAsync(new Uri(fileModel.FileUrl), path);
         }
     }
 }

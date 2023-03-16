@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
 using Zhaoxi.SmartParking.Server.Models;
@@ -20,13 +18,13 @@ namespace Zhaoxi.SmartParking.Server.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("all")]// 签权
         public async Task<Result<List<MenuModel>>> GetAllMenus()
         {
             var result = await _menuService.GetAllMenus();
 
-            return new Result<List<MenuModel>> { Data = result };
+            return new Result<List<MenuModel>> { Data = result, IsSuccess = true };
         }
 
     }

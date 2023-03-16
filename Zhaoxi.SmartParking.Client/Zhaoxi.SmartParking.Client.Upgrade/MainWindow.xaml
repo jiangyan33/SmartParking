@@ -45,6 +45,7 @@
                     </ControlTemplate>
 
                     <converters:String2BrushConverter x:Key="String2BrushConverter" />
+                    <converters:FileSizeConverter x:Key="FileSizeConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -241,7 +242,7 @@
                                            VerticalAlignment="Center"
                                            FontSize="12"
                                            Foreground="#555"
-                                           Text="2M" />
+                                           Text="{Binding FileLen, Converter={StaticResource FileSizeConverter}}" />
 
 
                                 <TextBox Grid.Column="3"

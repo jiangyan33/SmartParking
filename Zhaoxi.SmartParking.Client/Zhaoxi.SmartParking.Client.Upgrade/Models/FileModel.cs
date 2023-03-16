@@ -15,6 +15,8 @@ namespace Zhaoxi.SmartParking.Client.Upgrade.Models
 
         public string FileUrl { get; set; }
 
+        public string UpdatePath { get; set; }
+
         public int FileLen { get; set; }
 
         private string _state;

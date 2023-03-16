@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.Entity;
@@ -33,17 +34,32 @@ namespace Zhaoxi.SmartParking.Client.BLL
             return result.Data;
         }
 
+        public async Task<bool> Delete(string fileName)
+        {
+            var str = await _filesDAL.Delete(fileName);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
         public async Task<List<UpgradeFileEntity>> LocalList()
         {
             var str = await _filesDAL.LocalList();
-
-            //var result = new List<UpgradeFileEntity>();
-
-            //foreach(var item )
 
             var result = JsonSerializer.Deserialize<List<UpgradeFileEntity>>(str);
 
             return result;
         }
+
+        public async void UploadFile(string file, string updatePath, Action<int> progressChanged, Action completed)
+        {
+            _filesDAL.UploadFile(file, updatePath, progressChanged, completed);
+        }
+
     }
 }

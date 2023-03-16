@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -34,6 +35,15 @@ namespace Zhaoxi.SmartParking.Client.BLL
             {
                 throw new System.Exception(result.Message);
             }
+
+            foreach (var item in result.Data)
+            {
+                if (!string.IsNullOrEmpty(item.MenuIcon))
+                {
+                    item.MenuIcon = ((char)int.Parse(item.MenuIcon, NumberStyles.HexNumber)).ToString();
+                }
+            }
+
             return result.Data;
         }
 

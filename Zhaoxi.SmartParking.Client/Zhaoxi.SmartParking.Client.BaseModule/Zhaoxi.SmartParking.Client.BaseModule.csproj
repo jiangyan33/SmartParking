@@ -2,18 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0-windows</TargetFramework>
-		<UseWPF>true</UseWPF>
-		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-		<Platforms>AnyCPU;x64</Platforms>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Zhaoxi.SmartParking.Client.Assets\Zhaoxi.SmartParking.Client.Assets.csproj" />
+		<ProjectReference Include="..\Zhaoxi.SmartParking.Client.Common\Zhaoxi.SmartParking.Client.Common.csproj" />
 		<ProjectReference Include="..\Zhaoxi.SmartParking.Client.IBLL\Zhaoxi.SmartParking.Client.IBLL.csproj" />
 	</ItemGroup>
 
