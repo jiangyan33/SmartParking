@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Zhaoxi.SmartParking.Client.Views
+namespace Zhaoxi.SmartParking.Client.SystemModule.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MainHeaderView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainHeaderView : UserControl
     {
-        public MainWindow()
+        public MainHeaderView()
         {
             InitializeComponent();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

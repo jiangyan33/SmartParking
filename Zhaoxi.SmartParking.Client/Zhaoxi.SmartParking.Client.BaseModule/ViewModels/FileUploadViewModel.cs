@@ -14,6 +14,11 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 {
     public class FileUploadViewModel : BindableBase
     {
+
+        public string PageTitle => "升级文件上传";
+
+        public bool IsCanClose => true;
+
         public ObservableCollection<Models.FileInfoModel> Files { get; set; } = new ObservableCollection<Models.FileInfoModel>();
 
 

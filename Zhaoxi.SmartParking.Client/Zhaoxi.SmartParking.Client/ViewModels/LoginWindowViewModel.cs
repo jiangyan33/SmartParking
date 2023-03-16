@@ -103,6 +103,8 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
 
                     var model = await _sysUserBLL.Login(SysUserModel.UserName, SysUserModel.Password);
 
+                    GlobalValue.UserInfo = model;
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         window.DialogResult = true;

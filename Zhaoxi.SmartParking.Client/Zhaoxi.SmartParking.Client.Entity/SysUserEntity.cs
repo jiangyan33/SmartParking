@@ -19,5 +19,7 @@ namespace Zhaoxi.SmartParking.Client.Entity
         public int UserState { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public string Token { get; set; }
     }
 }

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Zhaoxi.SmartParking.Client.Common\Zhaoxi.SmartParking.Client.Common.csproj" />
     <ProjectReference Include="..\Zhaoxi.SmartParking.Client.IDAL\Zhaoxi.SmartParking.Client.IDAL.csproj" />
   </ItemGroup>
 

@@ -22,4 +22,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Web_Files\Images\" />
+  </ItemGroup>
+
 </Project>

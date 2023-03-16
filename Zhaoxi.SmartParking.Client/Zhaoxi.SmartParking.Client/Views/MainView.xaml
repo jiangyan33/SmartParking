@@ -1,0 +1,142 @@
+﻿<Window x:Class="Zhaoxi.SmartParking.Client.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        Title="朝夕教育停车场管理"
+        Width="1400"
+        Height="850"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Background="Transparent"
+        Closed="Window_Closed"
+        FontFamily="微软雅黑"
+        FontSize="13"
+        FontWeight="ExtraLight"
+        Foreground="#333"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" ResizeBorderThickness="4" />
+    </WindowChrome.WindowChrome>
+
+
+    <Window.Resources>
+
+        <Style x:Key="TabCloseButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="back"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                CornerRadius="3">
+                            <Path Margin="5"
+                                  Data="M0 0 9 8M0 8 8 0"
+                                  Stroke="{TemplateBinding Foreground}"
+                                  StrokeThickness="1" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#19000000" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Header" Value="{Binding DataContext.PageTitle}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="2,0" />
+            <Setter Property="Foreground" Value="#444" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Height="30" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"
+                                                  MinWidth="10"
+                                                  MaxWidth="30" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Margin="10,5,5,5"
+                                       VerticalAlignment="Center"
+                                       Text="{TemplateBinding Header}" />
+                            <Grid Name="close_grid"
+                                  Grid.Column="1"
+                                  Width="30"
+                                  Visibility="Collapsed">
+                                <Button Name="close_btn"
+                                        Margin="0,0,5,0"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CloseCommand}"
+                                        CommandParameter="{Binding}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Style="{StaticResource TabCloseButtonStyle}"
+                                        Visibility="Collapsed" />
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.IsCanClose}" Value="True">
+                                <Setter TargetName="close_grid" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="close_btn" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="close_btn" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EEE" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FF0ABEFF" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!--  左侧菜单  -->
+    <DockPanel>
+        <!--  左侧菜单  -->
+        <Grid Width="230"
+              Background="#0b3d90"
+              DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Image Width="70"
+                       Margin="0,30,0,0"
+                       Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Images/Logo.png" />
+                <TextBlock Margin="0,30"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Text="Smart Parking" />
+            </StackPanel>
+            <!--  注册区域   显示树形菜单  -->
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="LeftMenuTreeRegion" />
+        </Grid>
+        <!--  主页头  -->
+        <ContentControl Height="85"
+                        prism:RegionManager.RegionName="MainHeaderRegion"
+                        DockPanel.Dock="Top" />
+        <!--  页面显示区域  -->
+        <TabControl Margin="5"
+                    prism:RegionManager.RegionName="MainViewRegion"
+                    BorderThickness="0,1,0,0" />
+    </DockPanel>
+
+</Window>

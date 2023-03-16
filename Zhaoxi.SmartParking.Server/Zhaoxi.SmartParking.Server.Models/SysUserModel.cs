@@ -6,7 +6,7 @@ namespace Zhaoxi.SmartParking.Server.Models
     [SugarTable("sys_user")]
     public class SysUserModel
     {
-        [SugarColumn(ColumnName = "user_id")]
+        [SugarColumn(ColumnName = "user_id", IsPrimaryKey = true)]
         public int Id { get; set; }
 
         [SugarColumn(ColumnName = "user_name")]

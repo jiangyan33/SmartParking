@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -67,8 +68,56 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             //return File(bytes, type, fileName);
         }
 
+        [HttpGet("GetImage/{imgName}")]
+        public IActionResult GetImage(string imgName)
+        {
+            // 获取更新文件地址
+            var root = Path.Combine(Environment.CurrentDirectory, @"Web_Files\Images");
+
+            var filePath = $@"{root}\{imgName}";
+
+            if (!System.IO.File.Exists(filePath)) throw new Exception("文件不存在");
+
+            var contentTypeDict = new Dictionary<string, string> {
+                {"jpg","image/jpeg"},
+                {"jpeg","image/jpeg"},
+                {"jpe","image/jpeg"},
+                {"png","image/png"},
+                {"gif","image/gif"},
+                {"ico","image/x-ico"},
+                {"tif","image/tiff"},
+                {"tiff","image/tiff"},
+                {"fax","image/fax"},
+                {"wbmp","image/nd.wap.wbmp"},
+                {"rp","imagend.rn-realpix"}
+            };
+
+            var contentTypeStr = "image/jpeg";
+
+            var imgTypeSplit = imgName.Split(',');
+
+            var imgType = imgTypeSplit[imgTypeSplit.Length - 1].ToLower();
+
+            if (contentTypeDict.ContainsKey(imgType))
+            {
+                contentTypeStr = contentTypeDict[imgType];
+            }
+
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                var bytes = new byte[fs.Length];
+
+                fs.Read(bytes, 0, bytes.Length);
+
+                fs.Close();
+
+                return new FileContentResult(bytes, contentTypeStr);
+            }
+        }
+
 
         [HttpPost("upload")]
+        [Authorize]
         public async Task<IActionResult> Upload([FromForm] IFormCollection formCollection, [FromHeader] string md5, [FromHeader] string updatePath)
         {
             var result = new Result<long>();

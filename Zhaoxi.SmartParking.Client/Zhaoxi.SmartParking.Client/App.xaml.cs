@@ -25,7 +25,7 @@ namespace Zhaoxi.SmartParking.Client
 
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainView>();
         }
 
         protected override void InitializeShell(Window shell)

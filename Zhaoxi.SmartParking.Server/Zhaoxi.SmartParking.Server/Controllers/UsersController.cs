@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
 using Zhaoxi.SmartParking.Server.Models;
@@ -13,10 +14,14 @@ namespace Zhaoxi.SmartParking.Server.Controllers
 
         private readonly ISysUserService _sysUserService;
 
+        private readonly IConfiguration _configuration;
 
-        public UsersController(ISysUserService sysUserService)
+
+        public UsersController(ISysUserService sysUserService, IConfiguration configuration)
         {
             _sysUserService = sysUserService;
+
+            _configuration = configuration;
         }
 
 
@@ -32,8 +37,17 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             {
                 result.Message = "登录失败，用户名或者密码错误";
             }
-            else result.IsSuccess = true;
+            else
+            {
+                if (!string.IsNullOrEmpty(result.Data.UserIcon))
+                {
+                    var url = _configuration["Urls"] + "/api/Files/GetImage/";
 
+                    result.Data.UserIcon = url + result.Data.UserIcon;
+
+                }
+                result.IsSuccess = true;
+            }
             return result;
         }
 

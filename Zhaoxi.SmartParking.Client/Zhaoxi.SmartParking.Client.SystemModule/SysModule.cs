@@ -1,11 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.SystemModule.Views;
 
 namespace Zhaoxi.SmartParking.Client.SystemModule
@@ -18,13 +13,15 @@ namespace Zhaoxi.SmartParking.Client.SystemModule
 
             // RegionManager
             var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("LeftMenuTreeRegion", "TreeMenuView");
+            regionManager.RegisterViewWithRegion("LeftMenuTreeRegion", nameof(TreeMenuView));
+            regionManager.RegisterViewWithRegion("MainHeaderRegion", nameof(MainHeaderView));
 
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<TreeMenuView>();
+            containerRegistry.Register<MainHeaderView>();
         }
     }
 }

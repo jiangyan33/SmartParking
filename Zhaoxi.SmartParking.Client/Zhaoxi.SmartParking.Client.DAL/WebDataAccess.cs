@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
 using System.Collections.Generic;
 using System.Net;
-using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Zhaoxi.SmartParking.Client.Common;
 
 namespace Zhaoxi.SmartParking.Client.DAL
 {
@@ -21,6 +21,11 @@ namespace Zhaoxi.SmartParking.Client.DAL
 
             //client.BaseAddress = new Uri(baseUrl);
 
+            if (GlobalValue.UserInfo != null)
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GlobalValue.UserInfo.Token);
+            }
+
             var httpResponseMessage = await client.PostAsync(baseUrl + url, content);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
@@ -31,6 +36,8 @@ namespace Zhaoxi.SmartParking.Client.DAL
         {
             using (WebClient client = new WebClient())
             {
+                client.Headers.Add("Authorization", "Bearer " + GlobalValue.UserInfo.Token);
+
                 var length = Convert.ToInt64(headers["length"]);
 
                 var progress = 0;
