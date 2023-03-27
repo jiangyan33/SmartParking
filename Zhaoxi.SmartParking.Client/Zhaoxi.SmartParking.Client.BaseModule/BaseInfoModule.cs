@@ -20,6 +20,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule
         {
             containerRegistry.RegisterForNavigation<FileUploadView>();
             containerRegistry.RegisterForNavigation<UserManagementView>();
+            containerRegistry.RegisterForNavigation<MenuManagementView>();
 
             containerRegistry.RegisterDialog<AddFileDialogView>();
             containerRegistry.RegisterDialog<AddUserDialogView>();

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Zhaoxi.SmartParking.Client.Common;
-using Zhaoxi.SmartParking.Client.Entity;
 using Zhaoxi.SmartParking.Client.IBLL;
 using Zhaoxi.SmartParking.Client.Models;
 

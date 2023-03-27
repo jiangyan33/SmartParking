@@ -3,6 +3,7 @@ using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -17,23 +18,23 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 {
     public class MenuManagementViewModel : PageViewModelBase
     {
+        public ObservableCollection<MenuItemModel> Menus { get; set; } = new ObservableCollection<MenuItemModel>();
 
-        public ObservableCollection<UserInfoModel> Users { get; set; } = new ObservableCollection<UserInfoModel>();
+        private List<MenuEntity> _origMenus = new List<MenuEntity>();
 
-
-        private readonly ISysUserBLL _sysUserBLL;
+        private readonly IMenusBLL _menusBLL;
 
         private readonly Dispatcher _dispatcher;
 
         private readonly IDialogService _dialogService;
 
-        public MenuManagementViewModel(ISysUserBLL sysUserBLL, IDialogService dialogService)
+        public MenuManagementViewModel(IMenusBLL menusBLL, IDialogService dialogService)
         {
             PageTitle = "菜单管理";
 
             AddButtonText = "新增";
 
-            _sysUserBLL = sysUserBLL;
+            _menusBLL = menusBLL;
 
             _dialogService = dialogService;
 
@@ -65,7 +66,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
                     UserState = 0
                 };
 
-                await _sysUserBLL.Save(sysUserEntity);
+                //await _sysUserBLL.Save(sysUserEntity);
             }
             catch (Exception ex)
             {
@@ -98,32 +99,24 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
         {
             Task.Run(async () =>
             {
-                var userList = await _sysUserBLL.All();
+                _origMenus = await _menusBLL.GetMenus(0);
 
-                var tempList = new List<Models.UserInfoModel>();
-
-                for (var i = 0; i < userList.Count; i++)
+                // 先加一个根节点
+                var root = new MenuItemModel
                 {
-                    if (!userList[i].UserName.Contains(SearchValue) && !userList[i].RealName.Contains(SearchValue)) continue;
-
-                    tempList.Add(new Models.UserInfoModel
-                    {
-                        Index = i + 1,
-                        UserName = userList[i].UserName,
-                        RealName = userList[i].RealName,
-                        Age = userList[i].UserAge,
-                        UserIcon = userList[i].UserIcon,
-                        Password = userList[i].Password,
-                        UserId = userList[i].Id,
-                    });
-
-                }
+                    MenuId = 0,
+                    MenuHeader = "根节点",
+                    IsExpanded = true,
+                    IsCurrent = true,
+                    MenuType = 1
+                };
+                FillMenu(root.Children, root.MenuId);
 
                 _dispatcher.Invoke(() =>
                 {
-                    if (Users.Count > 0) Users.Clear();
+                    if (Menus.Count > 0) Menus.Clear();
 
-                    Users.AddRange(tempList);
+                    Menus.Add(root);
                 });
             });
         }
@@ -133,6 +126,35 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
             if (dialogResult.Result == ButtonResult.Cancel) return;
 
             Refresh();
+        }
+
+        private void FillMenu(ObservableCollection<MenuItemModel> menus, int parentId)
+        {
+            var sub = _origMenus.Where(x => x.ParentId == parentId).OrderBy(x => x.Index).ToList();
+
+            if (sub.Count > 0)
+            {
+                foreach (var item in sub)
+                {
+                    var model = new MenuItemModel
+                    {
+                        MenuId = item.MenuId,
+                        MenuHeader = item.MenuHeader,
+                        MenuIcon = item.MenuIcon,
+                        TargetView = item.TargetView,
+                        IsExpanded = true,
+                        MenuType = item.MenuType,
+                        Parent = item.ParentId,
+                        Index = item.Index,
+                    };
+
+                    Application.Current?.Dispatcher.Invoke(() => menus.Add(model));
+
+                    FillMenu(model.Children, item.MenuId);
+                }
+
+                menus.Last().IsLastChild = true;
+            }
         }
     }
 }

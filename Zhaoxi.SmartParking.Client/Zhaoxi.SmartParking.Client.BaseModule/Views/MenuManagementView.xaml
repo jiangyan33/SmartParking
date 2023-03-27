@@ -16,8 +16,132 @@
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DefaultToolBarTemplate.xaml" />
 
                 <ResourceDictionary>
+                    <ControlTemplate x:Key="ExpandButtonTemplate" TargetType="ToggleButton">
+                        <Border Width="15"
+                                Height="15"
+                                Background="#FF0ABEEF"
+                                CornerRadius="3">
+                            <Path Name="path"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M0 4 8 4M4 0 4 8"
+                                  Stroke="White"
+                                  StrokeThickness="1" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="path" Property="Data" Value="M0 0 8 0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="ListRowTemplate" TargetType="RadioButton">
+                        <Grid Name="back" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" SharedSizeGroup="column1" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton Name="expandBox"
+                                          Width="15"
+                                          Height="15"
+                                          IsChecked="{Binding IsExpanded}"
+                                          Template="{StaticResource ExpandButtonTemplate}"
+                                          Visibility="Collapsed" />
+
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding MenuHeader}" />
+
+                            <TextBlock Grid.Column="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding TargetView}" />
+
+                            <TextBlock Grid.Column="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{StaticResource Iconfont}"
+                                       Text="{Binding MenuIcon}" />
+
+                            <StackPanel Name="operationPanel"
+                                        Grid.Column="4"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <TextBlock Margin="0,0,3,0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    <Hyperlink Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.EditCommand}" CommandParameter="{Binding}">编辑</Hyperlink>
+                                </TextBlock>
+
+                                <TextBlock Margin="3,0,0,0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    <Hyperlink Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding}">删除</Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#08000000" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding MenuType}" Value="1">
+                                <Setter TargetName="expandBox" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#11000000" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding MenuId}" Value="0">
+                                <Setter TargetName="operationPanel" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
                     <DataTemplate x:Key="MenuNodeTemplate">
-                        <!--  模板  -->
+                        <Grid Name="root" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Path x:Name="path"
+                                  Data="M0 0 0 35 M0 17.5 15 17.5"
+                                  SnapsToDevicePixels="True"
+                                  Stroke="#DDD"
+                                  StrokeDashArray="2 2"
+                                  StrokeThickness="1" />
+                            <RadioButton Height="35"
+                                         GroupName="item"
+                                         IsChecked="{Binding IsCurrent}"
+                                         Template="{StaticResource ListRowTemplate}" />
+
+                            <ItemsControl Name="childrenList"
+                                          Grid.Row="1"
+                                          Margin="15,0,0,0"
+                                          ItemTemplate="{DynamicResource MenuNodeTemplate}"
+                                          ItemsSource="{Binding Children}" />
+                        </Grid>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsLastChild}" Value="True">
+                                <Setter TargetName="path" Property="Data" Value="M0 0 0 17.5M0 17.5 15 17.5" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MenuId}" Value="0">
+                                <Setter TargetName="path" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsExpanded}" Value="False">
+                                <Setter TargetName="childrenList" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -26,7 +150,44 @@
     <UserControl.Template>
         <StaticResource ResourceKey="ToolBarTemplate" />
     </UserControl.Template>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemTemplate="{StaticResource MenuNodeTemplate}" ItemsSource="{Binding}" />
-    </ScrollViewer>
+
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Background="#F7F9FA" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" SharedSizeGroup="column1" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="菜单名称" />
+
+            <TextBlock Grid.Column="2"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="目标视图" />
+
+            <TextBlock Grid.Column="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="图标" />
+
+            <TextBlock Grid.Column="4"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="操作" />
+        </Grid>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemTemplate="{StaticResource MenuNodeTemplate}" ItemsSource="{Binding Menus}" />
+        </ScrollViewer>
+    </Grid>
+
 </UserControl>

@@ -6,6 +6,8 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.Models
 {
     public class MenuItemModel : BindableBase
     {
+        public int MenuId { get; set; }
+
         public int Index { get; set; }
 
         private int _parentId;
