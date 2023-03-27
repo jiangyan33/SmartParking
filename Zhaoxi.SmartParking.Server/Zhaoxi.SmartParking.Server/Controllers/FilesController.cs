@@ -21,13 +21,17 @@ namespace Zhaoxi.SmartParking.Server.Controllers
     {
         private readonly IFilesService _filesService;
 
+        private readonly ISysUserService _sysUserService;
+
         private readonly IConfiguration _configuration;
 
-        public FilesController(IFilesService filesService, IConfiguration configuration)
+        public FilesController(IFilesService filesService, IConfiguration configuration, ISysUserService sysUserService)
         {
             _filesService = filesService;
 
             _configuration = configuration;
+
+            _sysUserService = sysUserService;
         }
 
 
@@ -170,6 +174,52 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             return Ok(result);
         }
 
+
+        [HttpPost("uploadIcon/{userName}")]
+        [Authorize]
+        public async Task<IActionResult> UploadIcon(string userName, [FromForm] IFormCollection formCollection)
+        {
+            var result = new Result<long>();
+
+            try
+            {
+                var fileList = (FormFileCollection)formCollection.Files;
+                if (fileList.Count > 0)
+                {
+                    var ext = Path.GetExtension(fileList[0].FileName);
+
+                    var fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + ext;
+
+                    var root = Path.Combine(Environment.CurrentDirectory, @"Web_Files\Images");
+
+                    var dir = new DirectoryInfo(root);
+
+                    if (!dir.Exists) dir.Create();
+
+                    using (FileStream fs = new FileStream($@"{root}\{fileName}", FileMode.Create))
+                    {
+                        await fileList[0].CopyToAsync(fs);
+
+                        await fs.FlushAsync();
+                    }
+
+                    await _sysUserService.UpdateUserIcon(userName, fileName);
+
+                    result.Data = fileList.Sum(f => f.Length);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+
+                result.Message = ex.Message;
+            }
+
+            Debug.WriteLine("上传完成" + result.IsSuccess);
+
+            return Ok(result);
+        }
 
         [HttpPost("delete/{fileName}")]
         public async Task<Result<bool>> Delete(string fileName)

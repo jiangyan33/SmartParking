@@ -14,7 +14,7 @@ namespace Zhaoxi.SmartParking.Client.Entity
 
         public string RealName { get; set; }
 
-        public string UserAge { get; set; }
+        public int UserAge { get; set; }
 
         public int UserState { get; set; }
 

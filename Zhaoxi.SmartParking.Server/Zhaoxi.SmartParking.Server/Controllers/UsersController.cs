@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
 using Zhaoxi.SmartParking.Server.Models;
@@ -49,6 +50,58 @@ namespace Zhaoxi.SmartParking.Server.Controllers
                 result.IsSuccess = true;
             }
             return result;
+        }
+
+        [HttpPost("all")]
+        [Authorize]
+        public async Task<Result<List<SysUserModel>>> All()
+        {
+            var list = await _sysUserService.All();
+
+            foreach (var item in list)
+            {
+                if (!string.IsNullOrEmpty(item.UserIcon))
+                {
+                    var url = _configuration["Urls"] + "/api/Files/GetImage/";
+
+                    item.UserIcon = url + item.UserIcon;
+
+                }
+            }
+
+            return new Result<List<SysUserModel>> { IsSuccess = true, Data = list };
+        }
+
+        [HttpPost("save")]
+        [Authorize]
+        public async Task<Result<bool>> Save([FromBody] SysUserModel sysUserModel)
+        {
+            try
+            {
+                await _sysUserService.Save(sysUserModel);
+
+                return new Result<bool> { IsSuccess = true, Data = true };
+            }
+            catch (System.Exception ex)
+            {
+                return new Result<bool> { Data = false, Message = ex.Message };
+            }
+        }
+
+        [HttpPost("resetPwd/{userId}")]
+        [Authorize]
+        public async Task<Result<bool>> ResetPwd(int userId)
+        {
+            try
+            {
+                await _sysUserService.ResetPwd(userId);
+
+                return new Result<bool> { IsSuccess = true, Data = true };
+            }
+            catch (System.Exception ex)
+            {
+                return new Result<bool> { Data = false, Message = ex.Message };
+            }
         }
 
         [HttpGet]

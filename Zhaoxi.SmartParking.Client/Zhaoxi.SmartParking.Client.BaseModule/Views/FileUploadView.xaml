@@ -17,134 +17,99 @@
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DefaultToolBarTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Margin="10">
+    <UserControl.Template>
+        <StaticResource ResourceKey="ToolBarTemplate" />
+    </UserControl.Template>
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Border Background="#F7F9FA" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="#DDD" BorderThickness="0,0,0,1" />
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="序号" />
 
-        <TextBox Width="300"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Style="{DynamicResource SearchTextBoxStyle}"
-                 Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}">
-            <b:Interaction.Triggers>
-                <b:EventTrigger EventName="KeyDown">
-                    <b:CallMethodAction MethodName="TextBox_KeyDown" TargetObject="{Binding}" />
-                </b:EventTrigger>
-            </b:Interaction.Triggers>
-        </TextBox>
-        <StackPanel HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-            <Button Width="70"
-                    Margin="5,0"
-                    Background="#FF0ABEFF"
-                    Command="{Binding RefreshCommand}"
-                    Content="刷新"
-                    Style="{StaticResource NormalButtonStyle}" />
+            <TextBlock Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="文件名称" />
 
-            <Button Width="100"
-                    Background="#FFF05005"
-                    Command="{Binding AddCommand}"
-                    Content="上传"
-                    Style="{StaticResource IconWithContentButtonStyle}"
-                    Tag="&#xe603;" />
-        </StackPanel>
+            <TextBlock Grid.Column="2"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="更新地址" />
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border Background="#F7F9FA" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="上传时间" />
 
-                <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="序号" />
-
-                <TextBlock Grid.Column="1"
-                           VerticalAlignment="Center"
-                           Text="文件名称" />
-
-                <TextBlock Grid.Column="2"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="更新地址" />
-
-                <TextBlock Grid.Column="3"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="上传时间" />
-
-                <TextBlock Grid.Column="4"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="操作" />
-            </Grid>
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Files}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid x:Name="root"
-                              Height="Auto"
-                              MinHeight="30"
-                              Background="Transparent">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="100" />
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Index}" />
-
-                            <TextBlock Grid.Column="1"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding FileName}" />
-                            <TextBlock Grid.Column="2"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding UpdatePath}" />
-                            <TextBlock Grid.Column="3"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding UploadTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
-
-                            <TextBlock Grid.Column="4"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">
-                                <Hyperlink Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteCommand}"
-                                           CommandParameter="{Binding FileName}"
-                                           TextDecorations="None">
-                                    删除
-                                </Hyperlink>
-                            </TextBlock>
-                        </Grid>
-                        <DataTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="root" Property="Background" Value="#F7F9FA" />
-                            </Trigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <TextBlock Grid.Column="4"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="操作" />
         </Grid>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Files}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="root"
+                          Height="Auto"
+                          MinHeight="30"
+                          Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Index}" />
+
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding FileName}" />
+                        <TextBlock Grid.Column="2"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding UpdatePath}" />
+                        <TextBlock Grid.Column="3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding UploadTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+
+                        <TextBlock Grid.Column="4"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            <Hyperlink Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteCommand}"
+                                       CommandParameter="{Binding FileName}"
+                                       TextDecorations="None">
+                                删除
+                            </Hyperlink>
+                        </TextBlock>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="root" Property="Background" Value="#F7F9FA" />
+                        </Trigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

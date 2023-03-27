@@ -56,6 +56,13 @@ namespace Zhaoxi.SmartParking.Client.DAL
             WebDataAccess.Upload(uri, file, progressChanged, completed, datas);
         }
 
+        public async void UploadIcon(string userName, string file)
+        {
+            var uri = "/files/uploadIcon/" + userName;
+
+            WebDataAccess.Upload(uri, file, null, null, null);
+        }
+
         private (string, long) GetFileMd5(string fileName)
         {
             try

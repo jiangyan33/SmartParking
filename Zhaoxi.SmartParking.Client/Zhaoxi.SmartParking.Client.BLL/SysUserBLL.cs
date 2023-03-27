@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.Entity;
 using Zhaoxi.SmartParking.Client.IBLL;
@@ -19,6 +20,46 @@ namespace Zhaoxi.SmartParking.Client.BLL
 
             _jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         }
+
+        public async Task<List<SysUserEntity>> All()
+        {
+            var str = await _sysUserDAL.All();
+
+            var result = JsonSerializer.Deserialize<ResultEntity<List<SysUserEntity>>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
+        public async Task<bool> Save(SysUserEntity sysUserEntity)
+        {
+            var str = await _sysUserDAL.Save(sysUserEntity);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
+        public async Task<bool> ResetPwd(int userId)
+        {
+            var str = await _sysUserDAL.ResetPwd(userId);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
 
         public async Task<SysUserEntity> Login(string userName, string password)
         {

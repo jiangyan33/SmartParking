@@ -5,7 +5,7 @@ namespace Zhaoxi.SmartParking.Server.Models
     [SugarTable("menus")]
     public class MenuModel
     {
-        [SugarColumn(ColumnName = "menu_id", IsPrimaryKey = true)]
+        [SugarColumn(ColumnName = "menu_id", IsPrimaryKey = true, IsIdentity = true)]
         public int MenuId { get; set; }
 
         [SugarColumn(ColumnName = "menu_header")]

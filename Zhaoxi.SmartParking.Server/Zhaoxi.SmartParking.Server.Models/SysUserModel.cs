@@ -6,7 +6,7 @@ namespace Zhaoxi.SmartParking.Server.Models
     [SugarTable("sys_user")]
     public class SysUserModel
     {
-        [SugarColumn(ColumnName = "user_id", IsPrimaryKey = true)]
+        [SugarColumn(ColumnName = "user_id", IsPrimaryKey = true, IsIdentity = true)]
         public int Id { get; set; }
 
         [SugarColumn(ColumnName = "user_name")]
@@ -22,7 +22,7 @@ namespace Zhaoxi.SmartParking.Server.Models
         public string RealName { get; set; }
 
         [SugarColumn(ColumnName = "user_age")]
-        public string UserAge { get; set; }
+        public int UserAge { get; set; }
 
         [SugarColumn(ColumnName = "user_state")]
         public int UserState { get; set; }

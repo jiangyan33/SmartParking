@@ -61,5 +61,10 @@ namespace Zhaoxi.SmartParking.Client.BLL
             _filesDAL.UploadFile(file, updatePath, progressChanged, completed);
         }
 
+        public async void UploadIcon(string userName, string file)
+        {
+            _filesDAL.UploadIcon(userName, file);
+        }
+
     }
 }

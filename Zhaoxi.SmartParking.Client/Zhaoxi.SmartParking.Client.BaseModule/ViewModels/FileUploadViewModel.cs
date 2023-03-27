@@ -1,5 +1,4 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,16 +7,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Zhaoxi.SmartParking.Client.BaseModule.Views;
+using Zhaoxi.SmartParking.Client.Common;
 using Zhaoxi.SmartParking.Client.IBLL;
 
 namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 {
-    public class FileUploadViewModel : BindableBase
+    public class FileUploadViewModel : PageViewModelBase
     {
-
-        public string PageTitle => "升级文件上传";
-
-        public bool IsCanClose => true;
 
         public ObservableCollection<Models.FileInfoModel> Files { get; set; } = new ObservableCollection<Models.FileInfoModel>();
 
@@ -30,6 +26,10 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
         public FileUploadViewModel(IFilesBLL filesBLL, IDialogService dialogService)
         {
+            PageTitle = "升级文件上传";
+
+            AddButtonText = "上传";
+
             _filesBLL = filesBLL;
 
             _dialogService = dialogService;
@@ -52,16 +52,12 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
             Refresh();
         }
 
-        public ICommand AddCommand => new DelegateCommand(Add);
-
-        private void Add()
+        public override void Add()
         {
             _dialogService.ShowDialog(nameof(AddFileDialogView), (res) => Refresh());
         }
 
-        public ICommand RefreshCommand => new DelegateCommand(Refresh);
-
-        private void Refresh()
+        public override void Refresh()
         {
             Task.Run(async () =>
             {
@@ -91,22 +87,5 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
                 });
             });
         }
-
-
-        private string _searchValue = "";
-
-        public string SearchValue
-        {
-            get { return _searchValue; }
-            set { SetProperty(ref _searchValue, value); }
-        }
-
-        public void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-
-            Refresh();
-        }
-
     }
 }

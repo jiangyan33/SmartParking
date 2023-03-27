@@ -50,40 +50,47 @@ namespace Zhaoxi.SmartParking.Client.ViewModels
             IsLoading = true;
             Task.Run(async () =>
             {
-                //await Task.Delay(2000);
-
-                var files = new List<string>();
-
-                var ret = await filesBLL.List();
-
-                // 当服务器列表中文件存在，且md5和本地的不一样，执行更新下载操作
-                var localRet = await filesBLL.LocalList();
-
-                foreach (var serverFile in ret)
+                try
                 {
-                    var model = localRet.Find(x => x.FileName == serverFile.FileName && x.FileMD5 == serverFile.FileMD5);
+                    var files = new List<string>();
 
-                    if (model == null)
+                    var ret = await filesBLL.List();
+
+                    // 当服务器列表中文件存在，且md5和本地的不一样，执行更新下载操作
+                    var localRet = await filesBLL.LocalList();
+
+                    foreach (var serverFile in ret)
                     {
-                        //文件名称、文件大小、文件路径、文件MD5
-                        files.Add(serverFile.FileName + "|" + serverFile.Length + "|" + serverFile.FilePath + "|" + serverFile.UpdatePath + "|" + serverFile.FileMD5);
+                        var model = localRet.Find(x => x.FileName == serverFile.FileName && x.FileMD5 == serverFile.FileMD5);
+
+                        if (model == null)
+                        {
+                            //文件名称、文件大小、文件路径、文件MD5
+                            files.Add(serverFile.FileName + "|" + serverFile.Length + "|" + serverFile.FilePath + "|" + serverFile.UpdatePath + "|" + serverFile.FileMD5);
+                        }
+                    }
+
+                    if (files.Count > 0)
+                    {
+                        // 执行更新操作
+                        var updateListJson = string.Join(";", files);
+
+                        var process = Process.Start("Zhaoxi.SmartParking.Client.Upgrade.exe", updateListJson);
+
+                        process.WaitForInputIdle();
+
+                        // 操作关闭窗口,这里没有触发任何命令，是否事件总线的通知功能，通知到UI,然后关闭窗口
+                        eventAggregator.GetEvent<CloseWindowEvent>().Publish();
                     }
                 }
-
-                if (files.Count > 0)
+                catch (Exception ex)
                 {
-                    // 执行更新操作
-                    var updateListJson = string.Join(";", files);
-
-                    var process = Process.Start("Zhaoxi.SmartParking.Client.Upgrade.exe", updateListJson);
-
-                    process.WaitForInputIdle();
-
-                    // 操作关闭窗口,这里没有触发任何命令，是否事件总线的通知功能，通知到UI,然后关闭窗口
-                    eventAggregator.GetEvent<CloseWindowEvent>().Publish();
+                    ErrorMessage = ex.Message ?? "";
                 }
-
-                IsLoading = false;
+                finally
+                {
+                    IsLoading = false;
+                }
             });
         }
 

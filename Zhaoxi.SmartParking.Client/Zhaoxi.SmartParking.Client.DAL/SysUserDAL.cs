@@ -10,5 +10,20 @@ namespace Zhaoxi.SmartParking.Client.DAL
         {
             return WebDataAccess.PostDatas("/users/login", new { userName, password });
         }
+
+        public Task<string> All()
+        {
+            return WebDataAccess.PostDatas("/users/all", new { });
+        }
+
+        public Task<string> Save(object obj)
+        {
+            return WebDataAccess.PostDatas("/users/save", obj);
+        }
+
+        public Task<string> ResetPwd(int userId)
+        {
+            return WebDataAccess.PostDatas("/users/resetPwd/" + userId, new { });
+        }
     }
 }

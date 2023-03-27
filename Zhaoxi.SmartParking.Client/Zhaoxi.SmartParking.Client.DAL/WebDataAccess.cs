@@ -38,40 +38,46 @@ namespace Zhaoxi.SmartParking.Client.DAL
             {
                 client.Headers.Add("Authorization", "Bearer " + GlobalValue.UserInfo.Token);
 
-                var length = Convert.ToInt64(headers["length"]);
-
-                var progress = 0;
-
-                var tmp = Convert.ToInt32(length / 5000);
-
-                if (tmp < 1) tmp = 1;
-
                 if (headers != null)
                 {
+                    var length = Convert.ToInt64(headers["length"]);
+
+                    var progress = 0;
+
+                    var tmp = Convert.ToInt32(length / 5000);
+
+                    if (tmp < 1) tmp = 1;
+
+
                     foreach (var dic in headers)
                     {
                         client.Headers.Add(dic.Key, dic.Value.ToString());
                     }
+
+                    client.UploadProgressChanged += (se, ev) =>
+                    {
+                        if (progress >= 95)
+                        {
+                            progress = 95;
+                        }
+                        else
+                        {
+                            // 按照一秒50k的速度上传速度
+                            progress += tmp;
+                        }
+
+                        progressChanged?.Invoke(progress);
+                    };
+
+                    client.UploadFileCompleted += (se, ev) => completed?.Invoke();
+
+                    client.UploadFileAsync(new Uri(baseUrl + url), "POST", file);
+                }
+                else
+                {
+                    client.UploadFile(new Uri(baseUrl + url), "POST", file);
                 }
 
-                client.UploadProgressChanged += (se, ev) =>
-                {
-                    if (progress >= 95)
-                    {
-                        progress = 95;
-                    }
-                    else
-                    {
-                        // 按照一秒50k的速度上传速度
-                        progress += tmp;
-                    }
-
-                    progressChanged(progress);
-                };
-
-                client.UploadFileCompleted += (se, ev) => completed();
-
-                client.UploadFileAsync(new Uri(baseUrl + url), "POST", file);
             }
         }
     }
