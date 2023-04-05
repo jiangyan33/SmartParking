@@ -9,5 +9,7 @@ namespace Zhaoxi.SmartParking.Client.IDAL
     public interface IMenusDAL
     {
         public Task<string> GetMenu(int id);
+
+        public Task<string> Save(object obj);
     }
 }

@@ -11,5 +11,6 @@ namespace Zhaoxi.SmartParking.Server.IService
     {
         public Task<List<MenuModel>> GetAllMenus();
 
+        public Task Save(MenuModel menuModel);
     }
 }

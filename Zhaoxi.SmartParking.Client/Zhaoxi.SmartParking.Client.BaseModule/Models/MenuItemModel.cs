@@ -1,6 +1,5 @@
 ﻿using Prism.Mvvm;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Zhaoxi.SmartParking.Client.BaseModule.Models
 {
@@ -91,12 +90,22 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.Models
             }
         }
 
-        private bool _isCurrent;
+        //private bool _isCurrent;
 
-        public bool IsCurrent
+        //public bool IsCurrent
+        //{
+        //    get { return _isCurrent; }
+        //    set { SetProperty(ref _isCurrent, value); }
+        //}
+
+        private int _overLocation = 0;
+        public int OverLocation
         {
-            get { return _isCurrent; }
-            set { SetProperty(ref _isCurrent, value); }
+            get { return _overLocation; }
+            set
+            {
+                SetProperty(ref _overLocation, value);
+            }
         }
 
     }

@@ -10,5 +10,7 @@ namespace Zhaoxi.SmartParking.Client.IBLL
     public interface IMenusBLL
     {
         public Task<List<MenuEntity>> GetMenus(int id);
+
+        public Task<bool> Save(MenuEntity menuEntity);
     }
 }

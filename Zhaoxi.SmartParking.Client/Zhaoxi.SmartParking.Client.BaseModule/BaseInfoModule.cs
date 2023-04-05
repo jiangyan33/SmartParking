@@ -1,11 +1,5 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.BaseModule.Views;
 
 namespace Zhaoxi.SmartParking.Client.BaseModule
@@ -24,6 +18,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule
 
             containerRegistry.RegisterDialog<AddFileDialogView>();
             containerRegistry.RegisterDialog<AddUserDialogView>();
+            containerRegistry.RegisterDialog<AddMenuDialogView>();
         }
     }
 }

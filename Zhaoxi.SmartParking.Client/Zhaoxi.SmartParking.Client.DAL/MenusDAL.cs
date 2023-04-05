@@ -13,5 +13,10 @@ namespace Zhaoxi.SmartParking.Client.DAL
         {
             return await WebDataAccess.PostDatas("/menus/all", new { });
         }
+
+        public Task<string> Save(object obj)
+        {
+            return WebDataAccess.PostDatas("/menus/save", obj);
+        }
     }
 }

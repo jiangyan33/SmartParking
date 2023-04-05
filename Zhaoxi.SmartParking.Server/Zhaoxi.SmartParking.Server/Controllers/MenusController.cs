@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
@@ -25,6 +26,22 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             var result = await _menuService.GetAllMenus();
 
             return new Result<List<MenuModel>> { Data = result, IsSuccess = true };
+        }
+
+        [HttpPost("save")]
+        [Authorize]
+        public async Task<Result<bool>> Save([FromBody] MenuModel menuModel)
+        {
+            try
+            {
+                await _menuService.Save(menuModel);
+
+                return new Result<bool> { IsSuccess = true, Data = true };
+            }
+            catch (System.Exception ex)
+            {
+                return new Result<bool> { Data = false, Message = ex.Message };
+            }
         }
 
     }

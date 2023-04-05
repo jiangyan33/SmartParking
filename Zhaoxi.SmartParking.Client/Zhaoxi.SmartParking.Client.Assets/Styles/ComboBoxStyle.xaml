@@ -1,26 +1,27 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+    <!--  如果需要在Win7上运行，这里会崩溃    主题 ：Aero2 Win8以后版本才有   Win7 Aero  -->
 
-    <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFF" />
+
+    <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC" />
     <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060" />
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent" />
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent" />
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA" />
-    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5" />
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent" />
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent" />
-
-    <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.0" Color="#FFDAEBFC" />
-        <GradientStop Offset="1.0" Color="#FFC4E0FC" />
-    </LinearGradientBrush>
-
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0.0" Color="#FFEBF4FC" />
         <GradientStop Offset="1.0" Color="#FFDCECFC" />
     </LinearGradientBrush>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA" />
+    <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="#FFDAEBFC" />
+        <GradientStop Offset="1.0" Color="#FFC4E0FC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5" />
+    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent" />
+
 
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -193,8 +194,30 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
-
+    <ControlTemplate x:Key="ComboBoxToggleButton2" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    Background="White"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+            <Border Grid.Column="1"
+                    Margin="0,10"
+                    BorderBrush="#EEE"
+                    BorderThickness="1,0,0,0" />
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Cursor="Hand"
+                       FontSize="12"
+                       Foreground="#0066CC"
+                       SnapsToDevicePixels="True"
+                       Text="更改" />
+        </Grid>
+    </ControlTemplate>
     <ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
             <Grid.ColumnDefinitions>
@@ -210,13 +233,11 @@
                 <Border x:Name="shadow"
                         MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                        Background="Transparent"
-                        BorderBrush="#999"
-                        BorderThickness="1">
+                        Background="Transparent">
                     <Border x:Name="dropDownBorder"
                             Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                             BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
-                            BorderThickness="0">
+                            BorderThickness="1">
                         <ScrollViewer x:Name="DropDownScrollViewer">
                             <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas x:Name="canvas"
@@ -243,22 +264,17 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                          Style="{StaticResource ComboBoxToggleButton}" />
-            <Border x:Name="border"
-                    Margin="{TemplateBinding BorderThickness}"
-                    Background="{StaticResource TextBox.Static.Background}">
-                <TextBox x:Name="PART_EditableTextBox"
-                         Margin="{TemplateBinding Padding}"
-                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                         IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
-                         Style="{StaticResource ComboBoxEditableTextBox}" />
-            </Border>
+                          Template="{StaticResource ComboBoxToggleButton2}" />
+            <ContentPresenter x:Name="ContentSite"
+                              Margin="10,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                              IsHitTestVisible="False" />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter TargetName="border" Property="Opacity" Value="0.56" />
-            </Trigger>
             <Trigger Property="IsKeyboardFocusWithin" Value="true">
                 <Setter Property="Foreground" Value="Black" />
             </Trigger>
@@ -283,7 +299,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="ComboBox">
+    <Style TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="White" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="0" />

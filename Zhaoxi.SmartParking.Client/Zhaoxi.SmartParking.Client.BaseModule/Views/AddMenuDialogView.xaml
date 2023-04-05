@@ -114,12 +114,13 @@
                      Text="{Binding MenuModel.TargetView, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox Grid.Row="4"
+                      Grid.RowSpan="2"
                       Grid.Column="1"
                       Width="110"
                       Height="65"
                       HorizontalAlignment="Left"
                       FontFamily="{StaticResource Iconfont}"
-                      ItemsSource="{Binding Icons}"
+                      ItemsSource="{Binding IconList}"
                       SelectedItem="{Binding MenuModel.MenuIcon}"
                       Template="{StaticResource ComboBoxEditableTemplate}">
 
@@ -129,7 +130,7 @@
 
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="10" />
+                        <UniformGrid Columns="6" />
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
 

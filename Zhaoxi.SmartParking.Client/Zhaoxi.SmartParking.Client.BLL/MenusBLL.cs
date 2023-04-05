@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.Entity;
@@ -23,6 +20,19 @@ namespace Zhaoxi.SmartParking.Client.BLL
             _menusDAL = menusDAL;
 
             _jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        }
+
+        public async Task<bool> Save(MenuEntity menuEntity)
+        {
+            var str = await _menusDAL.Save(menuEntity);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
         }
 
         public async Task<List<MenuEntity>> GetMenus(int id)
