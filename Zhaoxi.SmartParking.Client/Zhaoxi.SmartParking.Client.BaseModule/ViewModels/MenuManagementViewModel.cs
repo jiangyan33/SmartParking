@@ -104,12 +104,14 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
             if (ea.LeftButton != MouseButtonState.Pressed) return;
 
-            var frameworkElement = ea.OriginalSource as FrameworkElement;
-
-            if ((frameworkElement.Parent as FrameworkElement).Tag is MenuItemModel model)
+            if (ea.OriginalSource is FrameworkElement frameworkElement)
             {
-                //创建一个拖动对象，传一个节点过去
-                DragDrop.DoDragDrop(frameworkElement, model, DragDropEffects.Move);
+
+                if ((frameworkElement.Parent as FrameworkElement).Tag is MenuItemModel model)
+                {
+                    //创建一个拖动对象，传一个节点过去
+                    DragDrop.DoDragDrop(frameworkElement, model, DragDropEffects.Move);
+                }
             }
         }
 
@@ -131,30 +133,30 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
                 // 当前拖动的对象放到目标对象的前面
                 if (targetModel.OverLocation == 1)
                 {
-                    Move(list, model, targetModel.Index);
+                    Move(list, model, targetModel.MenuId, 1);
                 }
                 else if (targetModel.OverLocation == 3)// 当前拖动对象放置到目标对象的后面
                 {
-                    Move(list, model, targetModel.Index + 1);
+                    Move(list, model, targetModel.MenuId, -1);
                 }
                 else if (targetModel.OverLocation == 2)// 当前拖动对象放置到目标对象的子项
                 {
-                    Move(targetModel.Children, model, targetModel.Index + 1);
+                    Move(targetModel, model, -1, -1);
                 }
                 targetModel.OverLocation = 0;
 
                 // 处理IsLastChild
-                if (list.Count > 0)
-                    list.Last().IsLastChild = true;
+                //if (list.Count > 0)
+                //    list.Last().IsLastChild = true;
 
-                var count = targetModel.Children.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    targetModel.Children[i].Index = i;
-                    targetModel.Children[i].IsLastChild = false;
-                }
-                if (count > 0)
-                    targetModel.Children.Last().IsLastChild = true;
+                //var count = targetModel.Children.Count;
+                //for (int i = 0; i < count; i++)
+                //{
+                //    targetModel.Children[i].Index = i;
+                //    targetModel.Children[i].IsLastChild = false;
+                //}
+                //if (count > 0)
+                //    targetModel.Children.Last().IsLastChild = true;
             }
         }
 
@@ -316,48 +318,110 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
             return null;
         }
 
-        private void Move(ObservableCollection<MenuItemModel> menus, MenuItemModel model, int index)
+        /// <summary>
+        /// 将model从容器菜单容器中移除，放入到parentMenuItemModel的children中，放入位置为前、后、最后,当menuId为-1时放最后，当type=1时放前面,type为-1时放后面
+        /// </summary>
+        /// <param name="parentMenuItemModel"></param>
+        /// <param name="model"></param>
+        /// <param name="menuId"></param>
+        /// <param name="type"></param>
+        private void Move(MenuItemModel parentMenuItemModel, MenuItemModel model, int menuId, int type)
         {
             // 将model从原来的容器中移除，放到新的parent中，并且指定放入的位置
             _dispatcher.Invoke(() =>
             {
                 // 递归
-                //var list = GetMenuItemModel(Menus, model.Parent);
+                var modelParentModel = GetMenuItemModel(Menus, model.Parent);
 
                 // 触发移除操作
-                Debug.WriteLine($"触发移除操作，父容器数量:{menus.Count},索引:{index}");
+                Debug.WriteLine($"触发移除操作，父容器数量:{parentMenuItemModel.Children.Count}");
 
-                menus.Remove(model);
+                modelParentModel.Children.Remove(model);
 
-                if (menus.Count <= index)
+                if (modelParentModel.Children.Count > 0)
+                    modelParentModel.Children.Last().IsLastChild = true;
+
+                // 变更到数据库中的顺序索引
+                var menuIndex = 0;
+
+                if (menuId == -1)
                 {
-                    menus.Add(model);
+                    // 放入到最后
+                    parentMenuItemModel.Children.Add(model);
+
+                    if (parentMenuItemModel.Children.Count == 0)
+                    {
+                        menuIndex = 0;
+                    }
+                    else
+                    {
+                        menuIndex = parentMenuItemModel.Children.LastOrDefault().Index + 1000;
+                    }
                 }
                 else
                 {
-                    menus.Insert(index, model);
-                    // todo：更新到数据库中
-                    Debug.WriteLine("更新到数据库中。。" + index + "----" + model.MenuHeader);
+                    var index = parentMenuItemModel.Children.ToList().FindIndex(x => x.MenuId == menuId);
+
+                    // 变更的子容器中的插入位置
+                    var insertId = 0;
+
+                    if (type == 1)
+                    {
+                        insertId = index;
+
+                        menuIndex = parentMenuItemModel.Children[index].Index - 1;
+                    }
+                    else
+                    {
+                        insertId = index + 1;
+
+                        // 如果menuId后面没有数据
+                        if (parentMenuItemModel.Children.Count - 1 == index)
+                        {
+                            menuIndex = parentMenuItemModel.Children[index].Index + 1000;
+                        }
+                        else
+                        {
+                            menuIndex = (parentMenuItemModel.Children[index + 1].Index + parentMenuItemModel.Children[index].Index) / 2;
+                        }
+                    }
+
+                    parentMenuItemModel.Children.Insert(insertId, model);
                 }
+
+                foreach (var item in parentMenuItemModel.Children)
+                {
+                    item.IsLastChild = false;
+                }
+
+                parentMenuItemModel.Children.LastOrDefault().IsLastChild = true;
+                // todo：更新到数据库中
+                Debug.WriteLine("更新到数据库中。。" + menuIndex + "----" + model.MenuHeader);
             });
         }
 
 
-        private ObservableCollection<MenuItemModel> GetMenuItemModel(ObservableCollection<MenuItemModel> children, int modelId)
+        /// <summary>
+        /// 找到modelId对应节点的父节点的所有字节点
+        /// </summary>
+        /// <param name="children"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        private MenuItemModel GetMenuItemModel(ObservableCollection<MenuItemModel> children, int modelId)
         {
             foreach (var item in children)
             {
                 if (item.MenuId == modelId)
                 {
-                    return children;
+                    return item;
                 }
                 else
                 {
-                    GetMenuItemModel(item.Children, modelId);
+                    return GetMenuItemModel(item.Children, modelId);
                 }
             }
 
-            return new ObservableCollection<MenuItemModel>();
+            return null;
         }
     }
 }
