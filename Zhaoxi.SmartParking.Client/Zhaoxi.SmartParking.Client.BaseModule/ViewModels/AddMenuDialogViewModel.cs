@@ -115,7 +115,16 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
                 if (model.MenuId == 0)
                 {
-                    model.Index = _origMenus.ToList().Count(x => x.ParentId == CurrentParentMenu.MenuId) + 1000;
+                    var temp = _origMenus.FindAll(x => x.ParentId == CurrentParentMenu.MenuId).OrderByDescending(x => x.Index).FirstOrDefault();
+
+                    if (temp == null)
+                    {
+                        model.Index = 0;
+                    }
+                    else
+                    {
+                        model.Index = temp.Index + 1000;
+                    }
                 }
 
                 await _menusBLL.Save(model);

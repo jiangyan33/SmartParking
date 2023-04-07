@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Zhaoxi.SmartParking.Client.IDAL
 {
-    public interface IMenusDAL
+    public interface IRolesDAL
     {
-        public Task<string> GetMenu(int id);
-
-        public Task<string> GetMenus(int roleId);
+        public Task<string> GetAll();
 
         public Task<string> Save(object obj);
+
+        public Task<string> SaveRelation(object obj);
     }
 }

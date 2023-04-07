@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
@@ -72,13 +73,42 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             return new Result<List<SysUserModel>> { IsSuccess = true, Data = list };
         }
 
+        [HttpPost("users/{roleId}")]
+        [Authorize]
+        public async Task<Result<List<SysUserModel>>> GetUsers(int roleId)
+        {
+            var list = await _sysUserService.GetUsers(roleId);
+
+            return new Result<List<SysUserModel>> { IsSuccess = true, Data = list };
+        }
+
         [HttpPost("save")]
         [Authorize]
         public async Task<Result<bool>> Save([FromBody] SysUserModel sysUserModel)
         {
             try
             {
+                if (string.IsNullOrEmpty(sysUserModel.UserName))
+                {
+                    throw new Exception($"用户名不能为空");
+                }
                 await _sysUserService.Save(sysUserModel);
+
+                return new Result<bool> { IsSuccess = true, Data = true };
+            }
+            catch (System.Exception ex)
+            {
+                return new Result<bool> { Data = false, Message = ex.Message };
+            }
+        }
+
+        [HttpPost("saveRole")]
+        [Authorize]
+        public async Task<Result<bool>> SaveRole([FromBody] SysUserModel sysUserModel)
+        {
+            try
+            {
+                await _sysUserService.SaveRole(sysUserModel);
 
                 return new Result<bool> { IsSuccess = true, Data = true };
             }

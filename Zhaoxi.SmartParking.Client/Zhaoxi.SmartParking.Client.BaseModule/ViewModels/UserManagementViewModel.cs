@@ -88,7 +88,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
         public ICommand RoleCommand => new DelegateCommand<string>(Role);
 
-        private async void Role(string fileName)
+        private void Role(string fileName)
         {
             //var ret = MessageBox.Show($"是否要删除该条记录[{fileName}]?", "删除提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
@@ -138,6 +138,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
                 {
                     if (!userList[i].UserName.Contains(SearchValue) && !userList[i].RealName.Contains(SearchValue)) continue;
 
+                    var roles = userList[i].Roles.Select(x => new RoleModel { RoleId = x.RoleId, RoleName = x.RoleName }).ToList();
                     tempList.Add(new Models.UserInfoModel
                     {
                         Index = i + 1,
@@ -147,6 +148,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
                         UserIcon = userList[i].UserIcon,
                         Password = userList[i].Password,
                         UserId = userList[i].Id,
+                        Roles = new ObservableCollection<RoleModel>(roles)
                     });
 
                 }

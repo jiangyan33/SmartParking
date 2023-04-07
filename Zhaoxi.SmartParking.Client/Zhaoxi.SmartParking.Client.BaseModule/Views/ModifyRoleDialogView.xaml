@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="Zhaoxi.SmartParking.Client.BaseModule.Views.ModifyRoleDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.BaseModule.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             d:DesignHeight="220"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary>
+                    <Style x:Key="RoleItemButtonStyle" TargetType="CheckBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="CheckBox">
+                                    <Grid Background="Transparent">
+                                        <Border x:Name="back"
+                                                BorderBrush="#EEE"
+                                                BorderThickness="1"
+                                                CornerRadius="3">
+                                            <TextBlock Margin="8,5"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Text="{TemplateBinding Content}" />
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="back" Property="Background" Value="Orange" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="220" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Grid Margin="0,20,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10,0"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   Foreground="#888"
+                   Text="{Binding Title}" />
+
+        <ItemsControl Grid.Row="1"
+                      Margin="20"
+                      ItemsSource="{Binding Roles}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Margin="8,5"
+                              Content="{Binding RoleName}"
+                              DataContext="{Binding}"
+                              IsChecked="{Binding IsSelected}"
+                              Style="{StaticResource RoleItemButtonStyle}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Grid.Row="2"
+                    Margin="20,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="100"
+                    Height="30"
+                    Margin="5,0"
+                    Background="#FF0ABEFF"
+                    Command="{Binding ConfirmCommand}"
+                    Content="确定"
+                    Style="{StaticResource NormalButtonStyle}" />
+            <Button Width="100"
+                    Height="30"
+                    Background="#DDD"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"
+                    Foreground="#666"
+                    Style="{StaticResource NormalButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

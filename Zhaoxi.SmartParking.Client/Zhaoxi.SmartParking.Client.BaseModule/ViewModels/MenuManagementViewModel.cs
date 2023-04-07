@@ -230,7 +230,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
         {
             Task.Run(async () =>
             {
-                _origMenus = await _menusBLL.GetMenus(0);
+                _origMenus = await _menusBLL.GetAllMenus(0);
 
                 _origMenus.Add(new MenuEntity
                 {

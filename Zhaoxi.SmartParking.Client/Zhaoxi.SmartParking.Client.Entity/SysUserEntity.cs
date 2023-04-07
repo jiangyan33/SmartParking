@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zhaoxi.SmartParking.Client.Entity
 {
@@ -21,5 +22,9 @@ namespace Zhaoxi.SmartParking.Client.Entity
         public DateTime CreateTime { get; set; }
 
         public string Token { get; set; }
+
+        public List<MenuEntity> Menus { get; set; } = new List<MenuEntity>();
+
+        public List<RoleEntity> Roles { get; set; } = new List<RoleEntity>();
     }
 }

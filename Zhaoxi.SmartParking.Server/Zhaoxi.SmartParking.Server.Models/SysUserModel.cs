@@ -1,5 +1,6 @@
 ﻿using SqlSugar;
 using System;
+using System.Collections.Generic;
 
 namespace Zhaoxi.SmartParking.Server.Models
 {
@@ -32,5 +33,11 @@ namespace Zhaoxi.SmartParking.Server.Models
 
         [SugarColumn(IsIgnore = true)]
         public string Token { get; set; }
+
+        [SugarColumn(IsIgnore = true)]
+        public List<MenuModel> Menus { get; set; } = new List<MenuModel>();
+
+        [SugarColumn(IsIgnore = true)]
+        public List<RoleModel> Roles { get; set; } = new List<RoleModel>();
     }
 }

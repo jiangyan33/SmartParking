@@ -14,9 +14,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 {
     public class FileUploadViewModel : PageViewModelBase
     {
-
         public ObservableCollection<Models.FileInfoModel> Files { get; set; } = new ObservableCollection<Models.FileInfoModel>();
-
 
         private readonly IFilesBLL _filesBLL;
 

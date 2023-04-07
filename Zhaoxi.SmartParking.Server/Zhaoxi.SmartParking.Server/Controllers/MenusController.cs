@@ -28,6 +28,15 @@ namespace Zhaoxi.SmartParking.Server.Controllers
             return new Result<List<MenuModel>> { Data = result, IsSuccess = true };
         }
 
+        [HttpPost]
+        [Route("menus/{roleId}")]// 签权
+        public async Task<Result<List<int>>> GetMenus(int roleId)
+        {
+            var result = await _menuService.GetMenus(roleId);
+
+            return new Result<List<int>> { Data = result, IsSuccess = true };
+        }
+
         [HttpPost("save")]
         [Authorize]
         public async Task<Result<bool>> Save([FromBody] MenuModel menuModel)

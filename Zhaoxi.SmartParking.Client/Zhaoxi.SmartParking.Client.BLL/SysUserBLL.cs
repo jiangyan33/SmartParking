@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Client.Entity;
@@ -24,6 +25,19 @@ namespace Zhaoxi.SmartParking.Client.BLL
         public async Task<List<SysUserEntity>> All()
         {
             var str = await _sysUserDAL.All();
+
+            var result = JsonSerializer.Deserialize<ResultEntity<List<SysUserEntity>>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
+        public async Task<List<SysUserEntity>> Users(int roleId)
+        {
+            var str = await _sysUserDAL.GetUsers(roleId);
 
             var result = JsonSerializer.Deserialize<ResultEntity<List<SysUserEntity>>>(str, _jsonSerializerOptions);
 
@@ -70,6 +84,14 @@ namespace Zhaoxi.SmartParking.Client.BLL
             if (!result.IsSuccess)
             {
                 throw new System.Exception(result.Message);
+            }
+
+            foreach (var item in result.Data.Menus)
+            {
+                if (!string.IsNullOrEmpty(item.MenuIcon))
+                {
+                    item.MenuIcon = ((char)int.Parse(item.MenuIcon, NumberStyles.HexNumber)).ToString();
+                }
             }
             return result.Data;
         }

@@ -36,6 +36,8 @@ namespace Zhaoxi.SmartParking.Server
 
             services.AddTransient<IMenuService, MenuService>();
 
+            services.AddTransient<IRoleService, RoleService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Zhaoxi.SmartParking.Server", Version = "v1" });

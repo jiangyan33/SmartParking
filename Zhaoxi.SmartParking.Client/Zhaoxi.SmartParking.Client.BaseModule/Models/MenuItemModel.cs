@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Zhaoxi.SmartParking.Client.BaseModule.Models
 {
@@ -74,29 +75,9 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.Models
             get { return _isSelected; }
             set
             {
-                SetProperty(ref _isSelected, value, () =>
-                {
-                    // 选择的时候使用
-                    //if (!value && Children != null)
-                    //{
-                    //    Children.ToList().ForEach(m => m.IsSelected = false);
-                    //}
-
-                    //if (value && Parent != null && Parent.MenuId > 0)
-                    //{
-                    //    Parent.IsSelected = true;
-                    //}
-                });
+                SetProperty(ref _isSelected, value);
             }
         }
-
-        //private bool _isCurrent;
-
-        //public bool IsCurrent
-        //{
-        //    get { return _isCurrent; }
-        //    set { SetProperty(ref _isCurrent, value); }
-        //}
 
         private int _overLocation = 0;
         public int OverLocation

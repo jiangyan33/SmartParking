@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.Core;
 using Zhaoxi.SmartParking.Server.IService;
@@ -19,6 +18,16 @@ namespace Zhaoxi.SmartParking.Server.Service
             var list = await _sqlSugarClient.Queryable<MenuModel>().Where(x => x.State == 1).ToListAsync();
 
             var model = list.FirstOrDefault();
+
+            return list;
+        }
+
+        public async Task<List<int>> GetMenus(int roleId)
+        {
+            // 删除的时候需要删除关联关系
+            var list = await _sqlSugarClient.Queryable<RoleMenuModel>().
+                LeftJoin<MenuModel>((roleMenu, menu) => roleMenu.MenuId == menu.MenuId).
+                Where((roleMenu, menu) => roleMenu.RoleId == roleId && menu.State == 1).Select((roleMenu, menu) => roleMenu.MenuId).ToListAsync();
 
             return list;
         }

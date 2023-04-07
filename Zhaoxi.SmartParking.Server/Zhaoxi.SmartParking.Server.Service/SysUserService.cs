@@ -30,6 +30,27 @@ namespace Zhaoxi.SmartParking.Server.Service
                 model.Token = AuthentationToken(model);
             }
 
+            // 获取角色
+
+            var roleList = await _sqlSugarClient.Queryable<UserRoleModel>()
+                       .LeftJoin<RoleModel>((sysUserRole, role) => sysUserRole.RoleId == role.RoleId)
+                       .Where((sysUserRole, role) => sysUserRole.UserId == list[0].Id && role.State == 1)
+                       .Select((sysUserRole, role) => role).ToListAsync();
+
+
+            // 获取菜单
+            if (roleList.Count > 0)
+            {
+                var roleIdList = roleList.Select(x => x.RoleId).ToList();
+
+                var menuList = await _sqlSugarClient.Queryable<RoleMenuModel>()
+                    .LeftJoin<MenuModel>((roleMenu, menu) => roleMenu.MenuId == menu.MenuId)
+                    .Where((roleMenu, menu) => roleIdList.Contains(roleMenu.RoleId) && menu.State == 1)
+                    .Select((roleMenu, menu) => menu).ToListAsync();
+
+                model.Menus.AddRange(menuList);
+            }
+
             return model;
         }
 
@@ -68,6 +89,30 @@ namespace Zhaoxi.SmartParking.Server.Service
         public async Task<List<SysUserModel>> All()
         {
             var list = await _sqlSugarClient.Queryable<SysUserModel>().Where(x => x.UserState == 1).ToListAsync();
+
+            // 加载角色信息
+
+            if (list.Count == 0) return list;
+
+            var userIdList = list.Select(x => x.Id).ToList();
+
+            var roleList = await _sqlSugarClient.Queryable<UserRoleModel>().LeftJoin<RoleModel>((userRole, role) => userRole.RoleId == role.RoleId)
+               .Where((userRole, role) => userIdList.Contains(userRole.UserId) && role.State == 1).Select((userRole, role) => new { userId = userRole.UserId, role }).ToListAsync();
+
+            foreach (var item in list)
+            {
+                var roles = roleList.Where(x => x.userId == item.Id).Select(x => x.role).ToList();
+
+                item.Roles.AddRange(roles);
+            }
+
+            return list;
+        }
+
+        public async Task<List<SysUserModel>> GetUsers(int roleId)
+        {
+            var list = await _sqlSugarClient.Queryable<UserRoleModel>().LeftJoin<SysUserModel>((userRole, user) => userRole.UserId == user.Id)
+                .Where((userRole, user) => userRole.RoleId == roleId && user.UserState == 1).Select((userRole, user) => user).ToListAsync();
 
             return list;
         }
@@ -116,6 +161,32 @@ namespace Zhaoxi.SmartParking.Server.Service
                 list[0].UserState = sysUserModel.UserState;
 
                 await _sqlSugarClient.Updateable(list[0]).ExecuteCommandAsync();
+            }
+        }
+
+        public async Task SaveRole(SysUserModel sysUserModel)
+        {
+            try
+            {
+                _sqlSugarClient.BeginTran();
+
+                // 移除用户角色关系
+                await _sqlSugarClient.Deleteable<UserRoleModel>(x => x.UserId == sysUserModel.Id).ExecuteCommandAsync();
+
+                // 新增用户角色关系
+                var userRoleModelList = sysUserModel.Roles.Select(x => new UserRoleModel { UserId = sysUserModel.Id, RoleId = x.RoleId }).ToList();
+
+                if (userRoleModelList.Count > 0)
+                {
+                    await _sqlSugarClient.Insertable(userRoleModelList).ExecuteCommandAsync();
+                }
+                _sqlSugarClient.CommitTran();
+            }
+            catch (Exception ex)
+            {
+                _sqlSugarClient.RollbackTran();
+
+                throw new Exception(ex.Message);
             }
         }
 

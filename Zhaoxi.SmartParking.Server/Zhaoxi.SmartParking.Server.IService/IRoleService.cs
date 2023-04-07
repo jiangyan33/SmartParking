@@ -7,13 +7,12 @@ using Zhaoxi.SmartParking.Server.Models;
 
 namespace Zhaoxi.SmartParking.Server.IService
 {
-    public interface IMenuService
+    public interface IRoleService
     {
-        public Task<List<MenuModel>> GetAllMenus();
+        public Task<List<RoleModel>> GetAllMenus();
 
-        public Task<List<int>> GetMenus(int roleId);
+        public Task Save(RoleModel menuModel);
 
-
-        public Task Save(MenuModel menuModel);
+        public Task SaveRelation(RoleModel roleModel);
     }
 }

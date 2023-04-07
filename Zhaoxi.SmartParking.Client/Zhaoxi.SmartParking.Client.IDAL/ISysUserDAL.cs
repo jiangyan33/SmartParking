@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Zhaoxi.SmartParking.Client.IDAL
 {
@@ -11,6 +7,8 @@ namespace Zhaoxi.SmartParking.Client.IDAL
         public Task<string> Login(string userName, string password);
 
         public Task<string> All();
+
+        public Task<string> GetUsers(int roleId);
 
         public Task<string> Save(object obj);
 
