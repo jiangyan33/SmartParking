@@ -15,6 +15,47 @@
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary>
+                    <ControlTemplate x:Key="ListRowTemplate" TargetType="CheckBox">
+                        <Grid Name="back" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="checked"
+                                    Width="14"
+                                    Height="14"
+                                    BorderBrush="#DDD"
+                                    BorderThickness="1"
+                                    CornerRadius="3">
+                                <TextBlock Name="gou"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource Iconfont}"
+                                           Foreground="White"
+                                           Text="&#xe608;"
+                                           Visibility="Collapsed" />
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#08000000" />
+                            </Trigger>
+
+                            <!--<DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                <Setter TargetName="back" Property="Background" Value="#11000000" />
+                            </DataTrigger>-->
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="gou" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="checked" Property="Background" Value="#FF0ABEFF" />
+                                <Setter TargetName="checked" Property="BorderBrush" Value="#FF0ABEFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -79,7 +120,8 @@
 
                             <CheckBox HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IsChecked="{Binding IsSelected}" />
+                                      IsChecked="{Binding IsSelected}"
+                                      Template="{StaticResource ListRowTemplate}" />
 
                             <TextBlock Grid.Column="1"
                                        VerticalAlignment="Center"

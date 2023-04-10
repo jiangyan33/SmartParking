@@ -5,8 +5,8 @@
              xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.BaseModule.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
-             d:DesignHeight="220"
-             d:DesignWidth="400"
+             d:DesignHeight="450"
+             d:DesignWidth="500"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -49,8 +49,8 @@
     </UserControl.Resources>
     <prism:Dialog.WindowStyle>
         <Style TargetType="Window">
-            <Setter Property="Width" Value="400" />
-            <Setter Property="Height" Value="220" />
+            <Setter Property="Width" Value="500" />
+            <Setter Property="Height" Value="450" />
         </Style>
     </prism:Dialog.WindowStyle>
     <Grid Margin="0,20,0,0">

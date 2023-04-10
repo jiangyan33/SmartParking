@@ -21,7 +21,9 @@ namespace Zhaoxi.SmartParking.Server.Service
         {
             var pwd = GetMD5Str(GetMD5Str(password) + "|" + userName);
 
-            var list = await _sqlSugarClient.Queryable<SysUserModel>().Where(x => x.UserName == userName && x.Password == pwd).ToListAsync();
+            var list = await _sqlSugarClient.Queryable<SysUserModel>()
+                .Where(x => x.UserName == userName && x.Password == pwd && x.UserState == 1)
+                .ToListAsync();
 
             var model = list.FirstOrDefault();
 
@@ -46,7 +48,7 @@ namespace Zhaoxi.SmartParking.Server.Service
                 var menuList = await _sqlSugarClient.Queryable<RoleMenuModel>()
                     .LeftJoin<MenuModel>((roleMenu, menu) => roleMenu.MenuId == menu.MenuId)
                     .Where((roleMenu, menu) => roleIdList.Contains(roleMenu.RoleId) && menu.State == 1)
-                    .Select((roleMenu, menu) => menu).ToListAsync();
+                    .Select((roleMenu, menu) => menu).Distinct().ToListAsync();
 
                 model.Menus.AddRange(menuList);
             }

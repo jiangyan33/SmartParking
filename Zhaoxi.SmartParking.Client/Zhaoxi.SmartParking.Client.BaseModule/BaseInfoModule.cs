@@ -22,6 +22,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule
             containerRegistry.RegisterDialog<AddMenuDialogView>();
             containerRegistry.RegisterDialog<AddRoleDialogView>();
             containerRegistry.RegisterDialog<SelectUserDialogView>();
+            containerRegistry.RegisterDialog<ModifyRoleDialogView>();
         }
     }
 }

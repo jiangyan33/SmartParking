@@ -86,17 +86,19 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
             _dialogService.ShowDialog(nameof(AddUserDialogView), parameters, DialogResult);
         }
 
-        public ICommand RoleCommand => new DelegateCommand<string>(Role);
+        public ICommand RoleCommand => new DelegateCommand<object>(Role);
 
-        private void Role(string fileName)
+        private void Role(object obj)
         {
-            //var ret = MessageBox.Show($"是否要删除该条记录[{fileName}]?", "删除提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            var userInfoModel = obj as UserInfoModel;
 
-            //if (ret == MessageBoxResult.Cancel) return;
+            var param = new DialogParameters();
 
-            //await _sysUserBLL.Delete(fileName);
+            param.Add("userId", userInfoModel.UserId);
 
-            //Refresh();
+            param.Add("roleIdList", userInfoModel.Roles.Select(x => x.RoleId).ToList());
+
+            _dialogService.ShowDialog(nameof(ModifyRoleDialogView), param, DialogResult);
         }
 
         public ICommand PwdCommand => new DelegateCommand<object>(Pwd);
@@ -164,7 +166,9 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
         private void DialogResult(IDialogResult dialogResult)
         {
-            if (dialogResult.Result == ButtonResult.Cancel) return;
+            if (dialogResult.Result != ButtonResult.OK) return;
+
+            MessageBox.Show("操作完成", "提示");
 
             Refresh();
         }

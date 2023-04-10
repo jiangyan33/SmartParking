@@ -2,7 +2,9 @@
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Zhaoxi.SmartParking.Client.BaseModule.Models;
@@ -30,9 +32,17 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
 
         }
 
+        private int _userId;
+
+        private List<int> _roleIdList;
+
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            _roleIdList = parameters.GetValue<List<int>>("roleIdList");
 
+            _userId = parameters.GetValue<int>("userId");
+
+            Refresh();
         }
 
         private string _roleName;
@@ -58,13 +68,16 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
         {
             try
             {
-                var model = new RoleEntity
+                var roleIdList = Roles.Where(x => x.IsSelected).Select(x => new RoleEntity { RoleId = x.RoleId }).ToList();
+
+                var model = new SysUserEntity
                 {
-                    RoleName = RoleName,
-                    State = 1
+                    Id = _userId,
+
+                    Roles = roleIdList
                 };
 
-                await _rolesBLL.Save(model);
+                await _sysUserBLL.SaveRole(model);
 
                 RequestClose?.Invoke(new DialogResult(ButtonResult.OK));
             }
@@ -74,11 +87,28 @@ namespace Zhaoxi.SmartParking.Client.BaseModule.ViewModels
             }
         }
 
+        private async void Refresh()
+        {
+            var roles = await _rolesBLL.GetAll();
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var temp = roles.Select(x => new RoleModel { RoleId = x.RoleId, RoleName = x.RoleName, IsSelected = _roleIdList.Contains(x.RoleId) }).ToList();
+
+                Roles.AddRange(temp);
+            });
+        }
+
         private readonly IRolesBLL _rolesBLL;
 
-        public ModifyRoleDialogViewModel(IRolesBLL rolesBLL)
+        private readonly ISysUserBLL _sysUserBLL;
+
+
+        public ModifyRoleDialogViewModel(IRolesBLL rolesBLL, ISysUserBLL sysUserBLL)
         {
             _rolesBLL = rolesBLL;
+
+            _sysUserBLL = sysUserBLL;
         }
     }
 }

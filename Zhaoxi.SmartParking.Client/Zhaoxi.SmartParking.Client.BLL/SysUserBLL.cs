@@ -61,6 +61,19 @@ namespace Zhaoxi.SmartParking.Client.BLL
             return result.Data;
         }
 
+        public async Task<bool> SaveRole(SysUserEntity sysUserEntity)
+        {
+            var str = await _sysUserDAL.SaveRole(sysUserEntity);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
+
         public async Task<bool> ResetPwd(int userId)
         {
             var str = await _sysUserDAL.ResetPwd(userId);
