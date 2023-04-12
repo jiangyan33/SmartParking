@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zhaoxi.SmartParking.Server.IService;
 using Zhaoxi.SmartParking.Server.Models;
+using Zhaoxi.SmartParking.Server.Models.Dto;
 
 namespace Zhaoxi.SmartParking.Server.Controllers
 {

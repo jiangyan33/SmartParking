@@ -48,12 +48,16 @@ namespace Zhaoxi.SmartParking.Client
             containerRegistry.Register<IFilesBLL, FilesBLL>();
             containerRegistry.Register<IMenusBLL, MenusBLL>();
             containerRegistry.Register<IRolesBLL, RolesBLL>();
+            containerRegistry.Register<IAutoRegisterBLL, AutoRegisterBLL>();
+            containerRegistry.Register<IBaseInfoBLL, BaseInfoBLL>();
 
             // DAL
             containerRegistry.Register<ISysUserDAL, SysUserDAL>();
             containerRegistry.Register<IFilesDAL, FilesDAL>();
             containerRegistry.Register<IMenusDAL, MenusDAL>();
             containerRegistry.Register<IRolesDAL, RolesDAL>();
+            containerRegistry.Register<IAutoRegisterDAL, AutoRegisterDAL>();
+            containerRegistry.Register<IBaseInfoDAL, BaseInfoDAL>();
 
             // 注册弹出框窗口
             containerRegistry.RegisterDialogWindow<DialogWindow>();
@@ -66,6 +70,5 @@ namespace Zhaoxi.SmartParking.Client
             return new DirectoryModuleCatalog() { ModulePath = Environment.CurrentDirectory + "\\Modules" };
         }
 
-        // 
     }
 }

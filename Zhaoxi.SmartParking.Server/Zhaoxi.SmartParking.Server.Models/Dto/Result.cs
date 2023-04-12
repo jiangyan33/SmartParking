@@ -1,4 +1,4 @@
-﻿namespace Zhaoxi.SmartParking.Server.Models
+﻿namespace Zhaoxi.SmartParking.Server.Models.Dto
 {
     public class Result<T>
     {

@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
 		<PackageReference Include="Prism.Unity" Version="8.1.97" />
 	</ItemGroup>
 

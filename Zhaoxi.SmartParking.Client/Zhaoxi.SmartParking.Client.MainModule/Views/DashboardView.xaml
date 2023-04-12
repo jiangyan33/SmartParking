@@ -13,8 +13,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
-                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
-                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />
+                <!--<ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />-->
+                <!--<ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />-->
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ComboBoxStyle.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DataGridStyle.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DatePickerStyle.xaml" />
@@ -159,7 +159,7 @@
                                 <TextBlock FontSize="22"
                                            FontWeight="Normal"
                                            Foreground="#444">
-                                    <Run Text="{Binding FallbackValue, StringFormat={}{0:N0}}" />
+                                    <Run Text="{Binding Value, StringFormat={}{0:N0}}" />
                                 </TextBlock>
 
                                 <Grid Margin="0,10">
@@ -466,30 +466,37 @@
                           Margin="20,0,20,10"
                           ItemsSource="{Binding InfoList}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*"
+                        <DataGridTextColumn Width="Auto"
                                             Binding="{Binding PassDate}"
                                             Header="日期" />
-                        <DataGridTextColumn Width="*"
-                                            Binding="{Binding PassDate}"
+                        <DataGridTextColumn Width="Auto"
+                                            MinWidth="100"
+                                            Binding="{Binding Passageway}"
                                             Header="通道名称" />
-                        <DataGridTextColumn Width="*"
-                                            Binding="{Binding PassDate}"
+                        <DataGridTextColumn Width="Auto"
+                                            MinWidth="120"
+                                            Binding="{Binding TollCollector}"
                                             Header="收费员" />
-                        <DataGridTextColumn Width="*"
-                                            Binding="{Binding PassDate}"
+                        <DataGridTextColumn Width="Auto"
+                                            MinWidth="100"
+                                            Binding="{Binding LiftingState}"
                                             Header="抬杆状态" />
-                        <DataGridTextColumn Width="*"
-                                            Binding="{Binding PassDate}"
+                        <DataGridTextColumn Width="Auto"
+                                            MinWidth="100"
+                                            Binding="{Binding Discount}"
                                             Header="累计减免" />
-                        <DataGridTextColumn Width="*"
-                                            Binding="{Binding PassDate}"
+                        <DataGridTextColumn Width="Auto"
+                                            MinWidth="100"
+                                            Binding="{Binding State}"
                                             Header="使用状态" />
-                        <DataGridTemplateColumn Width="120" Header="操作">
+                        <DataGridTemplateColumn Width="*"
+                                                MinWidth="220"
+                                                Header="操作">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock>
-                                            <Hyperlink Command="{Binding RecordItemCommand}" CommandParameter="{Binding}">查看详情</Hyperlink>
+                                            <Hyperlink CommandParameter="{Binding}">查看详情</Hyperlink>
                                         </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
