@@ -9,5 +9,8 @@ namespace Zhaoxi.SmartParking.Client.IDAL
     public interface IAutoRegisterDAL
     {
         public Task<string> Pages(int pageNo, int pageSize, string search);
+
+        public Task<string> Save(object obj);
+
     }
 }

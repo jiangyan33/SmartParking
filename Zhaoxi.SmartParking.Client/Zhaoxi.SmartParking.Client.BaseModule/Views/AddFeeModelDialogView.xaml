@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Zhaoxi.SmartParking.Client.BaseModule.Views.AddFeeModelDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.BaseModule.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             d:DesignHeight="220"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="220" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Grid Margin="0,20,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="10,0"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   Foreground="#888"
+                   Text="{Binding Title}" />
+        <Grid Grid.Row="1" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="#888"
+                       Text="计费模式" />
+
+            <TextBox Grid.Column="1"
+                     Style="{StaticResource NormalTextBoxStyle}"
+                     Text="{Binding MainModel.Key}" />
+        </Grid>
+
+        <StackPanel Grid.Row="2"
+                    Margin="20,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="100"
+                    Height="30"
+                    Margin="5,0"
+                    Background="#FF0ABEFF"
+                    Command="{Binding ConfirmCommand}"
+                    Content="确定"
+                    Style="{StaticResource NormalButtonStyle}" />
+
+            <Button Width="100"
+                    Height="30"
+                    Margin="5,0"
+                    Background="#DDD"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"
+                    Foreground="#666"
+                    Style="{StaticResource NormalButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

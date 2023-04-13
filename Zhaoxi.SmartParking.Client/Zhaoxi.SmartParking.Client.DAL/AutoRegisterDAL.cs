@@ -9,5 +9,10 @@ namespace Zhaoxi.SmartParking.Client.DAL
         {
             return WebDataAccess.PostDatas("/autoregister/pages", new { pageNo, pageSize, search });
         }
+
+        public Task<string> Save(object obj)
+        {
+            return WebDataAccess.PostDatas("/autoregister/save", obj);
+        }
     }
 }

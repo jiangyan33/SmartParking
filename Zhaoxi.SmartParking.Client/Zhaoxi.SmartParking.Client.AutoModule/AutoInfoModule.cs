@@ -14,6 +14,8 @@ namespace Zhaoxi.SmartParking.Client.AutoModule
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<AutoRegisterView>();
+
+            containerRegistry.RegisterDialog<AddAutoRegisterDialogView>();
         }
     }
 }

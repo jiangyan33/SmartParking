@@ -7,5 +7,7 @@ namespace Zhaoxi.SmartParking.Client.IBLL
     public interface IAutoRegisterBLL
     {
         public Task<PageResult<List<AutoRegisterEntity>>> Pages(int pageNo, int pageSize, string search);
+
+        public Task<bool> Save(AutoRegisterEntity autoRegisterEntity);
     }
 }

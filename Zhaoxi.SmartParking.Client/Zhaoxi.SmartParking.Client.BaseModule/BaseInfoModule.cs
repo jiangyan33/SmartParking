@@ -16,6 +16,9 @@ namespace Zhaoxi.SmartParking.Client.BaseModule
             containerRegistry.RegisterForNavigation<UserManagementView>();
             containerRegistry.RegisterForNavigation<MenuManagementView>();
             containerRegistry.RegisterForNavigation<RoleManagementView>();
+            containerRegistry.RegisterForNavigation<AutoColorView>();
+            containerRegistry.RegisterForNavigation<LicenseColorView>();
+            containerRegistry.RegisterForNavigation<FeeModelView>();
 
             containerRegistry.RegisterDialog<AddFileDialogView>();
             containerRegistry.RegisterDialog<AddUserDialogView>();
@@ -23,6 +26,7 @@ namespace Zhaoxi.SmartParking.Client.BaseModule
             containerRegistry.RegisterDialog<AddRoleDialogView>();
             containerRegistry.RegisterDialog<SelectUserDialogView>();
             containerRegistry.RegisterDialog<ModifyRoleDialogView>();
+            containerRegistry.RegisterDialog<AddFeeModelDialogView>();
         }
     }
 }

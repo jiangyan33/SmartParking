@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Services.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -7,8 +8,10 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Zhaoxi.SmartParking.Client.AutoModule.Models;
+using Zhaoxi.SmartParking.Client.AutoModule.Views;
 using Zhaoxi.SmartParking.Client.Common;
 using Zhaoxi.SmartParking.Client.Controls;
+using Zhaoxi.SmartParking.Client.Entity;
 using Zhaoxi.SmartParking.Client.IBLL;
 
 namespace Zhaoxi.SmartParking.Client.AutoModule.ViewModels
@@ -58,43 +61,47 @@ namespace Zhaoxi.SmartParking.Client.AutoModule.ViewModels
 
         private async void Delete(object obj)
         {
-            //var model = obj as UserInfoModel;
+            var model = obj as AutoRegisterModel;
 
-            //var ret = MessageBox.Show($"是否要删除该条记录[{model.RealName}]?", "删除提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            var ret = MessageBox.Show($"是否要删除该条记录[{model.AutoLicense}]?", "删除提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
-            //if (ret == MessageBoxResult.Cancel) return;
+            if (ret == MessageBoxResult.Cancel) return;
 
-            //try
-            //{
-            //    var sysUserEntity = new SysUserEntity
-            //    {
-            //        UserName = model.UserName,
-            //        RealName = model.RealName,
-            //        UserAge = model.Age,
-            //        UserIcon = model.UserIcon,
-            //        Password = model.Password,
-            //        Id = model.UserId,
-            //        UserState = 0
-            //    };
+            try
+            {
+                var autoRegisterEntity = new AutoRegisterEntity
+                {
+                    AutoId = model.AutoId,
+                    AutoLicense = model.AutoLicense,
+                    LicenseColorId = model.LicenseColorId,
+                    AutoColorId = model.AutoColorId,
+                    FeeModeId = model.FeeModeId,
+                    Description = model.Description,
+                    State = 0,
+                    ValidCount = model.ValidCount,
+                    ValidEndTime = model.ValidEndTime,
+                };
 
-            //    await _sysUserBLL.Save(sysUserEntity);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "错误信息", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //Refresh();
+                await _autoRegisterBLL.Save(autoRegisterEntity);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误信息", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            Refresh();
         }
 
         public ICommand EditCommand => new DelegateCommand<object>(Edit);
 
         private void Edit(object obj)
         {
+            var model = obj as AutoRegisterModel;
+
             var parameters = new DialogParameters();
 
-            parameters.Add("model", obj);
+            parameters.Add("model", ModelHelper.CopyModel(model));
 
-            //_dialogService.ShowDialog(nameof(AddUserDialogView), parameters, DialogResult);
+            _dialogService.ShowDialog(nameof(AddAutoRegisterDialogView), parameters, DialogResult);
         }
 
 
@@ -102,9 +109,9 @@ namespace Zhaoxi.SmartParking.Client.AutoModule.ViewModels
         {
             var parameters = new DialogParameters();
 
-            //parameters.Add("model", new UserInfoModel());
+            parameters.Add("model", new AutoRegisterModel());
 
-            //_dialogService.ShowDialog(nameof(AddUserDialogView), parameters, DialogResult);
+            _dialogService.ShowDialog(nameof(AddAutoRegisterDialogView), parameters, DialogResult);
         }
 
         public override void Refresh()

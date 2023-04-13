@@ -40,6 +40,8 @@ namespace Zhaoxi.SmartParking.Server
 
             services.AddTransient<IAutoRegisterService, AutoRegisterService>();
 
+            services.AddTransient<IBaseInfoService, BaseInfoService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Zhaoxi.SmartParking.Server", Version = "v1" });

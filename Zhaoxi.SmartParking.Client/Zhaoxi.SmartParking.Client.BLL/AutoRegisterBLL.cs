@@ -31,5 +31,18 @@ namespace Zhaoxi.SmartParking.Client.BLL
             }
             return result;
         }
+
+        public async Task<bool> Save(AutoRegisterEntity autoRegisterEntity)
+        {
+            var str = await _autoRegisterDAL.Save(autoRegisterEntity);
+
+            var result = JsonSerializer.Deserialize<ResultEntity<bool>>(str, _jsonSerializerOptions);
+
+            if (!result.IsSuccess)
+            {
+                throw new System.Exception(result.Message);
+            }
+            return result.Data;
+        }
     }
 }

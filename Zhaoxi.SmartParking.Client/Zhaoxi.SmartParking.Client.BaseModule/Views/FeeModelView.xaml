@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Zhaoxi.SmartParking.Client.BaseModule.Views.FeeModelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.BaseModule.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DefaultToolBarTemplate.xaml" />
+                <ResourceDictionary>
+                    <DataTemplate x:Key="ItemTemplate">
+                        <Grid Name="root"
+                              Height="35"
+                              Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" SharedSizeGroup="A" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="#888"
+                                       Text="{Binding Index}" />
+
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Foreground="#888"
+                                       Text="{Binding Key}" />
+                            <StackPanel Grid.Column="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <TextBlock Margin="3,0">
+                                    <Hyperlink Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.EditCommand}" CommandParameter="{Binding}">编辑</Hyperlink>
+                                </TextBlock>
+                                <TextBlock Margin="3,0">
+                                    <Hyperlink Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding}">删除</Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Template>
+        <StaticResource ResourceKey="ToolBarTemplate" />
+    </UserControl.Template>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Background="#EEE" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" SharedSizeGroup="A" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="序号" />
+
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="收费模式" />
+
+            <TextBlock Grid.Column="2"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="操作" />
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl ItemTemplate="{StaticResource ItemTemplate}" ItemsSource="{Binding DictModelList}" />
+        </ScrollViewer>
+    </Grid>
+</UserControl>
