@@ -4,5 +4,11 @@
                         xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client"
                         xmlns:prism="http://prismlibrary.com/"
                         ShutdownMode="OnExplicitShutdown">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Zhaoxi.SmartParking.Client.Assets;component/Styles/ScrollViewerStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </prism:PrismApplication>

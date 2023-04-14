@@ -17,7 +17,7 @@
                 <!--<ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/TextBoxStyles.xaml" />-->
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ComboBoxStyle.xaml" />
                 <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DataGridStyle.xaml" />
-                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DatePickerStyle.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DatePickerStyle2.xaml" />
 
                 <ResourceDictionary>
                     <Style x:Key="TopTabButtonStyle" TargetType="{x:Type RadioButton}">
@@ -122,7 +122,8 @@
                 <DatePicker Width="130"
                             Height="30"
                             BorderThickness="0"
-                            SelectedDate="{Binding CurrentDate}" />
+                            SelectedDate="{Binding CurrentDate}"
+                            Style="{StaticResource DatePickerStyle}" />
             </StackPanel>
 
             <!--  第二行  -->

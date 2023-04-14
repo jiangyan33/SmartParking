@@ -22,7 +22,7 @@ namespace Zhaoxi.SmartParking.Client.MainModule.ViewModels
     {
         public string CurrentArea { get; set; }
 
-        public DateTime CurrentDate { get; set; }
+        public DateTime CurrentDate { get; set; } = DateTime.Now;
 
         public ObservableCollection<AreaModel> AreaList { get; set; } = new ObservableCollection<AreaModel>();
 
