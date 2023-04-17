@@ -46,7 +46,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.MainModule", "Zhaoxi.SmartParking.Client.MainModule\Zhaoxi.SmartParking.Client.MainModule.csproj", "{91A330A1-75E0-4AA5-98D6-25B87E0377CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.AutoModule", "Zhaoxi.SmartParking.Client.AutoModule\Zhaoxi.SmartParking.Client.AutoModule.csproj", "{CC708531-35ED-433D-B163-AF3845BC0781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhaoxi.SmartParking.Client.AutoModule", "Zhaoxi.SmartParking.Client.AutoModule\Zhaoxi.SmartParking.Client.AutoModule.csproj", "{CC708531-35ED-433D-B163-AF3845BC0781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhaoxi.SmartParking.Client.ReportModule", "Zhaoxi.SmartParking.Client.ReportModule\Zhaoxi.SmartParking.Client.ReportModule.csproj", "{B0F96E64-621D-4D64-8072-6D9DCCE08182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +170,14 @@ Global
 		{CC708531-35ED-433D-B163-AF3845BC0781}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC708531-35ED-433D-B163-AF3845BC0781}.Release|x64.ActiveCfg = Release|Any CPU
 		{CC708531-35ED-433D-B163-AF3845BC0781}.Release|x64.Build.0 = Release|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Debug|x64.Build.0 = Debug|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Release|x64.ActiveCfg = Release|Any CPU
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,6 +197,7 @@ Global
 		{56DD3505-A51F-4593-B547-025EC1798A8D} = {4B8FFB99-0684-4B9F-94A1-5671A1C5A661}
 		{91A330A1-75E0-4AA5-98D6-25B87E0377CA} = {BBE5B2EE-7A28-4D08-B70D-4DD22BB1A962}
 		{CC708531-35ED-433D-B163-AF3845BC0781} = {BBE5B2EE-7A28-4D08-B70D-4DD22BB1A962}
+		{B0F96E64-621D-4D64-8072-6D9DCCE08182} = {BBE5B2EE-7A28-4D08-B70D-4DD22BB1A962}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDAEDA78-E9CA-4BC4-A785-5024734E32FE}

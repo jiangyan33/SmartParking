@@ -1,0 +1,352 @@
+﻿<UserControl x:Class="Zhaoxi.SmartParking.Client.ReportModule.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Zhaoxi.SmartParking.Client.ReportModule.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/BaseResources.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="/Zhaoxi.SmartParking.Client.Assets;component/Styles/DatePickerStyle2.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="10,0"
+                   VerticalAlignment="Center"
+                   Text="日期区间" />
+
+        <Border Height="32"
+                Margin="75,0,0,0"
+                HorizontalAlignment="Left"
+                BorderBrush="#CCC"
+                BorderThickness="1"
+                CornerRadius="5">
+            <StackPanel Orientation="Horizontal">
+                <DatePicker Name="dp1"
+                            Width="110"
+                            Height="28"
+                            Margin="1,0"
+                            DisplayDateEnd="{Binding ElementName=dp2, Path=SelectedDate}"
+                            SelectedDate="{Binding StartDate}"
+                            Style="{StaticResource DatePickerStyle}" />
+
+                <TextBlock VerticalAlignment="Center" Text="-" />
+
+                <DatePicker Name="dp2"
+                            Width="110"
+                            Height="28"
+                            Margin="1,0"
+                            DisplayDateStart="{Binding ElementName=dp1, Path=SelectedDate}"
+                            IsTodayHighlighted="True"
+                            SelectedDate="{Binding EndDate}"
+                            Style="{StaticResource DatePickerStyle}" />
+            </StackPanel>
+        </Border>
+        <Button Width="60"
+                Height="30"
+                Margin="330,0,0,0"
+                HorizontalAlignment="Left"
+                Content="搜索"
+                Style="{StaticResource NormalButtonStyle}" />
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button Width="80"
+                    Command="{Binding RefreshCommand}"
+                    Content="刷新"
+                    Style="{StaticResource NormalButtonStyle}" />
+
+            <Button Margin="10,0"
+                    Background="Orange"
+                    Command="{Binding ExportCommand}"
+                    Content="导出"
+                    Style="{StaticResource NormalButtonStyle}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  BorderBrush="#EEE"
+                  BorderThickness="0,1,0,0"
+                  CanUserAddRows="False"
+                  CanUserSortColumns="False"
+                  GridLinesVisibility="None"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding ReportItemModelModelList}"
+                  RowHeaderWidth="0"
+                  SelectionMode="Single">
+            <DataGrid.Resources>
+                <Style x:Key="ColumnHeaderGripperStyle" TargetType="Thumb">
+                    <Setter Property="Width" Value="0.5" />
+                    <Setter Property="Background" Value="#EEE" />
+                    <Setter Property="Cursor" Value="SizeWE" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Thumb">
+                                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="#FFF3F8FE" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Grid>
+                                    <Border Name="columnHeaderBorder"
+                                            Background="{TemplateBinding Background}"
+                                            BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                    <Thumb Name="PART_LeftHeaderGripper"
+                                           HorizontalAlignment="Left"
+                                           Style="{StaticResource ColumnHeaderGripperStyle}" />
+                                    <Thumb Name="PART_RightHeaderGripper"
+                                           HorizontalAlignment="Right"
+                                           Style="{StaticResource ColumnHeaderGripperStyle}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <Style x:Key="DataGridCellCenter" TargetType="DataGridCell">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="#EEE"
+                                        BorderThickness="1,0,0,1">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style x:Key="DataGridCellRight" TargetType="DataGridCell">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="#EEE"
+                                        BorderThickness="1,0,0,1">
+                                    <ContentPresenter Margin="10,0"
+                                                      HorizontalAlignment="Right"
+                                                      VerticalAlignment="Center"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style x:Key="DataGridCellNormal" TargetType="DataGridCell">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="#EEE"
+                                        BorderThickness="1,0,0,1">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Height" Value="28" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridRow">
+                                <Border Name="DGR_Border" BorderThickness="0">
+                                    <DataGridCellsPresenter Margin="0"
+                                                            Padding="0"
+                                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="35"
+                                    Binding="{Binding Index, StringFormat={}{0:00}}"
+                                    CellStyle="{StaticResource DataGridCellCenter}"
+                                    Header="序号" />
+
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding Date, StringFormat={}{0:yyyy-MM-dd}}"
+                                    CellStyle="{StaticResource DataGridCellCenter}"
+                                    Header="日期" />
+
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding TotalCount}"
+                                    CellStyle="{StaticResource DataGridCellCenter}"
+                                    Header="总订单数" />
+
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding ReceAmount, StringFormat={}{0:C2}, ConverterCulture=zh-CN}"
+                                    CellStyle="{StaticResource DataGridCellCenter}"
+                                    Header="应收金额" />
+
+                <DataGridTemplateColumn Width="3*" CellStyle="{StaticResource DataGridCellNormal}">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                        <Grid>
+                                            <Border Name="columnHeaderBorder"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderThickness="0">
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                            <Thumb x:Name="PART_LeftHeaderGripper"
+                                                   HorizontalAlignment="Left"
+                                                   Style="{StaticResource ColumnHeaderGripperStyle}" />
+                                            <Thumb x:Name="PART_RightHeaderGripper"
+                                                   HorizontalAlignment="Right"
+                                                   Style="{StaticResource ColumnHeaderGripperStyle}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.Header>
+                        <Grid Background="#FFF3F8FE">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="28" />
+                                <RowDefinition Height="28" />
+                            </Grid.RowDefinitions>
+                            <Border BorderBrush="#EEE" BorderThickness="0,0,0,1" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="实收金额" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Name="bor1" Margin="1,0" />
+                                <Border x:Name="bor2"
+                                        Grid.Column="1"
+                                        Margin="-1,0,0,0" />
+                                <Border x:Name="bor3" Grid.Column="2" />
+
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="现金支付"
+                                           TextAlignment="Center" />
+                                <TextBlock Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Text="电子支付"
+                                           TextAlignment="Center" />
+
+                                <TextBlock Grid.Column="2"
+                                           VerticalAlignment="Center"
+                                           Text="小记"
+                                           TextAlignment="Center" />
+
+                                <GridSplitter Width="1"
+                                              HorizontalAlignment="Right"
+                                              Background="#EEE" />
+                                <GridSplitter Grid.Column="1"
+                                              Width="1"
+                                              HorizontalAlignment="Right"
+                                              Background="#EEE" />
+                            </Grid>
+                        </Grid>
+                    </DataGridTemplateColumn.Header>
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="{Binding ElementName=bor1, Path=ActualWidth}" BorderBrush="#EEE" />
+                                <Border Grid.Column="1"
+                                        Width="{Binding ElementName=bor2, Path=ActualWidth}"
+                                        BorderBrush="#EEE"
+                                        BorderThickness="1,0" />
+                                <Border Grid.Column="2"
+                                        Width="{Binding ElementName=bor3, Path=ActualWidth}"
+                                        BorderBrush="#EEE" />
+
+                                <TextBlock Margin="10,0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding CashPayment, StringFormat={}{0:C2}, ConverterCulture=zh-CN}" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="10,0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding ElecPayment, StringFormat={}{0:C2}, ConverterCulture=zh-CN}" />
+                                <TextBlock Grid.Column="2"
+                                           Margin="10,0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Subtotal, StringFormat={}{0:C2}, ConverterCulture=zh-CN}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding DeduAmount, StringFormat={}{0:C2}, ConverterCulture=zh-CN}"
+                                    CellStyle="{StaticResource DataGridCellCenter}"
+                                    Header="减免金额" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2"
+              Margin="0,15,0,0"
+              Background="White" />
+    </Grid>
+</UserControl>
